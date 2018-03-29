@@ -19,6 +19,6 @@ export const updateUser = async user => {
 
   await db
     .collection('users')
-    .doc(user.userId)
+    .doc(appUser.userId)
     .set(appUser, { merge: true });
 };

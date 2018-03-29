@@ -5,7 +5,6 @@ export const logIn = async () => {
     const result = await auth.signInWithPopup(GoogleAuthProvider);
     return result.user;
   } catch (ex) {
-    console.error('errorss: ', ex);
     return null;
   }
 };
