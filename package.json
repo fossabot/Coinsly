@@ -1,11 +1,11 @@
 {
-  "name": "coinage",
+  "name": "Coinsly",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
   "keywords": ["coins", "collecting"],
-  "homepage": "https://github.com/DamianMullins/coinage",
-  "repository": "git@github.com:DamianMullins/coinage.git",
+  "homepage": "https://github.com/DamianMullins/Coinsly",
+  "repository": "git@github.com:DamianMullins/Coinsly.git",
   "author": "Damian Mullins <damian@lowflyingowls.co.uk>",
   "license": "MIT",
   "dependencies": {

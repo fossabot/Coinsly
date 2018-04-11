@@ -1,8 +1,8 @@
 <div align="center">
-<h1>coinage</h1>
+<h1>Coinsly</h1>
 
 <a href="https://www.emojione.com/emoji/1f45b">
-<img height="80" width="80" alt="purse" src="https://raw.githubusercontent.com/damianmullins/coinage/master/purse.png" />
+<img height="80" width="80" alt="purse" src="https://raw.githubusercontent.com/damianmullins/Coinsly/master/purse.png" />
 </a>
 
 <p>Keep track of your coin collection.</p>
@@ -10,7 +10,7 @@
 
 ---
 
-[![Build Status](https://travis-ci.org/DamianMullins/coinage.svg)](https://travis-ci.org/DamianMullins/coinage)
-[![Coverage Status](https://coveralls.io/repos/github/DamianMullins/coinage/badge.svg)](https://coveralls.io/github/DamianMullins/coinage)
-[![Dependency Status](https://gemnasium.com/badges/github.com/DamianMullins/coinage.svg)](https://gemnasium.com/github.com/DamianMullins/coinage)
+[![Build Status](https://travis-ci.org/DamianMullins/Coinsly.svg)](https://travis-ci.org/DamianMullins/Coinsly)
+[![Coverage Status](https://coveralls.io/repos/github/DamianMullins/Coinsly/badge.svg)](https://coveralls.io/github/DamianMullins/Coinsly)
+[![Dependency Status](https://gemnasium.com/badges/github.com/DamianMullins/Coinsly.svg)](https://gemnasium.com/github.com/DamianMullins/Coinsly)
 

@@ -133,7 +133,7 @@ class App extends Component {
 
     return (
       <div>
-        <Header title="Coinage" />
+        <Header title="Coinsly" />
 
         <form onSubmit={this.handleAuth}>
           {user ? (
