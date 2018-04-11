@@ -1,9 +1,10 @@
 import { db } from './firebaseService';
 
-export const addCoin = async ({ denomination, name, order }) => {
+export const addCoin = async ({ denomination, name, year, order }) => {
   const result = await db.collection('coins').add({
     denomination,
     name,
+    year,
     order
   });
 

@@ -3,9 +3,9 @@ import 'firebase/firestore';
 
 if (!firebase.apps.length) {
   firebase.initializeApp({
-    apiKey: 'AIzaSyBDmyLf6HuwhFgUucjHXgKjn1fWFpABrxk',
-    authDomain: 'coins-b08dd.firebaseapp.com',
-    projectId: 'coins-b08dd'
+    apiKey: 'AIzaSyB5_LQYxg-5o1LJ8NQb1B9NdlYQ8Rewgl8',
+    authDomain: 'coinsly-6ec91.firebaseapp.com',
+    projectId: 'coinsly-6ec91'
   });
 }
 
