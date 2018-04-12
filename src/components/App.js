@@ -96,7 +96,11 @@ class App extends Component {
   handleFilterSubmit = e => {
     e.preventDefault();
 
-    console.log(this.state.filter);
+    const { value } = e.target.filter;
+
+    this.setState({
+      filter: value
+    });
   };
 
   handleOwnedChange = async e => {
