@@ -85,7 +85,7 @@ class App extends Component {
     console.log(this.state.user);
   };
 
-  handleFilterCheckboxChange = e => {
+  handleFilterChange = e => {
     const { value } = e.target;
 
     this.setState({
@@ -99,7 +99,7 @@ class App extends Component {
     console.log(this.state.filter);
   };
 
-  handleOwnedCheckboxChange = async e => {
+  handleOwnedChange = async e => {
     this.showLoader();
 
     const { checked, value: coinId } = e.target;
@@ -149,13 +149,13 @@ class App extends Component {
           <div>
             <Filters
               handleSubmit={this.handleFilterSubmit}
-              handleCheckboxChange={this.handleFilterCheckboxChange}
+              handleChange={this.handleFilterChange}
               filter={filter}
             />
 
             <CoinList
               handleSubmit={this.handleCoinSubmit}
-              handleOwnedCheckboxChange={this.handleOwnedCheckboxChange}
+              handleOwnedChange={this.handleOwnedChange}
               {...this.state}
             />
           </div>

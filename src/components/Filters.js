@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Filters = ({ handleSubmit, handleCheckboxChange, filter }) => (
+const Filters = ({ handleSubmit, handleChange, filter }) => (
   <form onSubmit={handleSubmit}>
     <label>
       All
@@ -10,7 +10,7 @@ const Filters = ({ handleSubmit, handleCheckboxChange, filter }) => (
         name="filter"
         value="all"
         checked={filter === 'all'}
-        onChange={handleCheckboxChange}
+        onChange={handleChange}
       />
     </label>
 
@@ -21,7 +21,7 @@ const Filters = ({ handleSubmit, handleCheckboxChange, filter }) => (
         name="filter"
         value="onlyNeeded"
         checked={filter === 'onlyNeeded'}
-        onChange={handleCheckboxChange}
+        onChange={handleChange}
       />
     </label>
 
@@ -32,7 +32,7 @@ const Filters = ({ handleSubmit, handleCheckboxChange, filter }) => (
         name="filter"
         value="onlyOwned"
         checked={filter === 'onlyOwned'}
-        onChange={handleCheckboxChange}
+        onChange={handleChange}
       />
     </label>
 
@@ -42,7 +42,7 @@ const Filters = ({ handleSubmit, handleCheckboxChange, filter }) => (
 
 Filters.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  handleCheckboxChange: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
   filter: PropTypes.string.isRequired
 };
 

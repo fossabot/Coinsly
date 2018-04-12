@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Coin = ({ coin, owned, handleOwnedCheckboxChange }) => (
+const Coin = ({ coin, owned, handleOwnedChange }) => (
   <li>
     <label data-testid="coin-label">
       <input
         type="checkbox"
         checked={owned.find(o => o.coinId === coin.id) !== undefined}
-        onChange={handleOwnedCheckboxChange}
+        onChange={handleOwnedChange}
         value={coin.id}
       />
       {coin.name}
@@ -18,7 +18,7 @@ const Coin = ({ coin, owned, handleOwnedCheckboxChange }) => (
 Coin.propTypes = {
   coin: PropTypes.object.isRequired,
   owned: PropTypes.array,
-  handleOwnedCheckboxChange: PropTypes.func.isRequired
+  handleOwnedChange: PropTypes.func.isRequired
 };
 
 Coin.defaultProps = {

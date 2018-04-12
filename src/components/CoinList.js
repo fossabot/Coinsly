@@ -23,7 +23,7 @@ const CoinList = ({
   coins,
   owned,
   filter,
-  handleOwnedCheckboxChange,
+  handleOwnedChange,
   handleSubmit
 }) => {
   const filtered = filterCoins(filter, coins, owned);
@@ -36,7 +36,7 @@ const CoinList = ({
             key={coin.id}
             coin={coin}
             owned={owned}
-            handleOwnedCheckboxChange={handleOwnedCheckboxChange}
+            handleOwnedChange={handleOwnedChange}
           />
         ))}
       </ul>
@@ -52,7 +52,7 @@ CoinList.propTypes = {
   coins: PropTypes.array,
   owned: PropTypes.array,
   filter: PropTypes.string.isRequired,
-  handleOwnedCheckboxChange: PropTypes.func.isRequired,
+  handleOwnedChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired
 };
 
