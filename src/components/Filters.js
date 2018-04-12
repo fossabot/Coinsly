@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Filters = ({ handleSubmit, handleChange, filter }) => (
+const Filters = ({ filter, handleSubmit, handleChange }) => (
   <form onSubmit={handleSubmit}>
     <label>
       All
