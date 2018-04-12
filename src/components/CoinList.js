@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import Coin from './Coin';
 
 const filterNeeded = (coins, owned) =>
-  coins.filter(c => owned.find(o => o.id === c.id) === undefined);
+  coins.filter(c => owned.find(o => o.coinId === c.id) === undefined);
 
 const filterOwned = (coins, owned) =>
-  coins.filter(c => owned.find(o => o.id === c.id) !== undefined);
+  coins.filter(c => owned.find(o => o.coinId === c.id) !== undefined);
 
 const filterCoins = (filter, coins, owned) => {
   switch (filter) {
