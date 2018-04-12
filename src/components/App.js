@@ -109,19 +109,21 @@ class App extends Component {
     const { checked, value: coinId } = e.target;
     const { owned, user } = this.state;
 
-    let newState;
-
     if (checked) {
       const ownedId = await addOwned(user.uid, coinId);
-      newState = [...owned, { id: ownedId, userId: user.uid, coinId }];
+      const newState = [...owned, { id: ownedId, userId: user.uid, coinId }];
+
+      this.setState({
+        owned: newState
+      });
     } else {
       await removeOwned(user.uid, coinId);
-      newState = owned.filter(o => o.coinId !== coinId);
-    }
+      const newState = owned.filter(o => o.coinId !== coinId);
 
-    this.setState({
-      owned: newState
-    });
+      this.setState({
+        owned: newState
+      });
+    }
 
     this.hideLoader();
   };
