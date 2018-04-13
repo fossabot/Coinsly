@@ -149,9 +149,9 @@ class App extends Component {
           )}
         </form>
 
-        {isLoading ? <p>Loading</p> : null}
+        {isLoading && <p>Loading</p>}
 
-        {user ? (
+        {user && (
           <div>
             <Filters
               handleSubmit={this.handleFilterSubmit}
@@ -165,7 +165,7 @@ class App extends Component {
               {...this.state}
             />
           </div>
-        ) : null}
+        )}
       </div>
     );
   }
