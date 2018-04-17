@@ -3,24 +3,30 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
-  "keywords": ["coins", "collecting"],
+  "keywords": [
+    "coins",
+    "collecting"
+  ],
   "homepage": "https://github.com/DamianMullins/Coinsly",
   "repository": "git@github.com:DamianMullins/Coinsly.git",
   "author": "Damian Mullins <damian@lowflyingowls.co.uk>",
   "license": "MIT",
   "dependencies": {
-    "coveralls": "3.0.0",
     "firebase": "4.12.1",
-    "react": "16.3.1",
-    "react-dom": "16.3.1",
+    "glamor": "^2.20.40",
+    "glamorous": "^4.12.3",
+    "react": "16.3.2",
+    "react-dom": "16.3.2"
+  },
+  "devDependencies": {
+    "coveralls": "3.0.0",
     "react-scripts": "1.1.4",
     "react-testing-library": "2.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test":
-      "react-scripts test --env=jsdom --testMatch=\"**/?(*.)(spec|test).js?(x)\" --coverage",
+    "test": "react-scripts test --env=jsdom --testMatch=\"**/?(*.)(spec|test).js?(x)\" --coverage",
     "test:coveralls": "cat coverage/lcov.info | coveralls",
     "eject": "react-scripts eject"
   }

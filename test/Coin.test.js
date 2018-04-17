@@ -17,13 +17,13 @@ it('coin markup is correct', () => {
 
 it('label text content is correct', () => {
   // Arrange
-  const coin = { name: 'B - Bond... James Bond' };
+  const coin = { id: 2, name: 'B - Bond... James Bond' };
 
   // Act
   const { getByTestId } = render(
-    <Coin coin={coin} handleOwnedCheckboxChange={() => {}} />
+    <Coin coin={coin}/>
   );
 
   // Assert
-  expect(getByTestId('coin-label').textContent).toBe('B - Bond... James Bond');
+  expect(getByTestId('coin-label').textContent).toBe('I own this');
 });

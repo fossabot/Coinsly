@@ -1,6 +1,6 @@
-import { auth, GoogleAuthProvider } from './firebaseService';
+import { auth, GoogleAuthProvider } from './firebaseApi';
 
-export const logIn = async () => {
+export const login = async () => {
   try {
     const result = await auth.signInWithPopup(GoogleAuthProvider);
     return result.user;
@@ -9,7 +9,7 @@ export const logIn = async () => {
   }
 };
 
-export const logOut = async () => {
+export const logout = async () => {
   await auth.signOut();
 };
 

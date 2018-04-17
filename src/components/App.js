@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
-import auth, { logIn, logOut } from '../services/authService';
-import { getCoins } from '../services/coinService';
-import { updateUser } from '../services/userService';
-import { addOwned, removeOwned, getOwned } from '../services/ownedService';
+
+import { ContentWrapper } from '../styles';
+import auth, { login, logout } from '../api/authApi';
+import { getCoins } from '../api/coinApi';
+import { addOwned, removeOwned } from '../api/ownedApi';
+import coinHelper from '../helpers/coinHelper';
+
 import Header from './Header';
 import Filters from './Filters';
+import Denominations from './Denominations';
+import Totals from './Totals';
 import CoinList from './CoinList';
+import { FiltersWrapper } from '../styles';
+import CoinContext from '../context/coinContext';
+import LoadingContext from '../context/loadingContext';
 
 class App extends Component {
   constructor() {
@@ -15,8 +23,10 @@ class App extends Component {
       user: null,
       isLoading: false,
       coins: [],
-      owned: [],
-      filter: 'all'
+      filteredCoins: [],
+      filter: '',
+      denominations: [],
+      denomination: ''
     };
 
     this.state = this.defaultState;
@@ -27,15 +37,11 @@ class App extends Component {
   };
 
   showLoader = () => {
-    this.setState({
-      isLoading: true
-    });
+    this.setState({ isLoading: true });
   };
 
   hideLoader = () => {
-    this.setState({
-      isLoading: false
-    });
+    this.setState({ isLoading: false });
   };
 
   async componentDidMount() {
@@ -43,13 +49,19 @@ class App extends Component {
       this.showLoader();
 
       if (user) {
-        const coins = await getCoins();
-        const owned = await getOwned(user.uid);
+        const coins = await getCoins(user.uid);
+        const denominations = coinHelper.getDenominations(coins);
+        const [denomination] = denominations;
+        const filters = ['All', 'Needed', 'Owned'];
+        const [filter] = filters;
 
         this.setState({
           user,
           coins,
-          owned
+          filters,
+          filter,
+          denominations,
+          denomination
         });
       }
 
@@ -57,17 +69,27 @@ class App extends Component {
     });
   }
 
+  componentDidUpdate() {
+    const { filter, coins, filteredCoins, denomination } = this.state;
+    const newFilteredCoins = coinHelper.filterCoins(
+      filter,
+      coins,
+      denomination
+    );
+    const filterChanged =
+      JSON.stringify(newFilteredCoins) !== JSON.stringify(filteredCoins);
+
+    if (filterChanged) {
+      this.setState({ filteredCoins: newFilteredCoins });
+    }
+  }
+
   login = async () => {
     this.showLoader();
-
-    const user = await logIn();
+    const user = await login();
 
     if (user) {
-      await updateUser(user);
-
-      this.setState({
-        user
-      });
+      this.setState({ user });
     }
 
     this.hideLoader();
@@ -75,98 +97,104 @@ class App extends Component {
 
   logout = async () => {
     this.showLoader();
-    await logOut();
+    await logout();
     this.setDefaultState();
   };
 
   handleAuth = e => {
     e.preventDefault();
-
-    console.log(this.state.user);
   };
 
   handleFilterChange = e => {
-    const { value } = e.target;
-
-    this.setState({
-      filter: value
-    });
+    this.setState({ filter: e.target.value });
   };
 
-  handleFilterSubmit = e => {
-    e.preventDefault();
-
-    const { value } = e.target.filter;
-
-    this.setState({
-      filter: value
-    });
+  handleDenominationChange = e => {
+    this.setState({ denomination: e.target.value });
   };
 
   handleOwnedChange = async e => {
     this.showLoader();
-
     const { checked, value: coinId } = e.target;
-    const { owned, user } = this.state;
+    const { user, coins } = this.state;
+    let newCoinsState;
 
     if (checked) {
       const ownedId = await addOwned(user.uid, coinId);
-      const newState = [...owned, { id: ownedId, userId: user.uid, coinId }];
-
-      this.setState({
-        owned: newState
-      });
+      newCoinsState = coinHelper.addOwnedId(coins, coinId, ownedId);
     } else {
       await removeOwned(user.uid, coinId);
-      const newState = owned.filter(o => o.coinId !== coinId);
-
-      this.setState({
-        owned: newState
-      });
+      newCoinsState = coinHelper.removeOwnedId(coins, coinId);
     }
 
+    this.setState({ coins: newCoinsState });
     this.hideLoader();
   };
 
-  handleCoinSubmit = e => {
-    e.preventDefault();
-
-    // console.log(this.state.owned.map(o => o.id));
-  };
-
   render() {
-    const { user, isLoading, filter } = this.state;
+    const {
+      user,
+      isLoading,
+      coins,
+      filteredCoins,
+      filters,
+      filter,
+      denominations,
+      denomination
+    } = this.state;
 
     return (
-      <div>
-        <Header title="Coinsly" />
+      <LoadingContext.Provider value={isLoading}>
+        <Header
+          title="Coinsly"
+          user={user}
+          login={this.login}
+          logout={this.logout}
+          handleAuth={this.handleAuth}
+        >
+          {user && (
+            <FiltersWrapper>
+              <Filters
+                filters={filters}
+                filter={filter}
+                handleChange={this.handleFilterChange}
+              />
 
-        <form onSubmit={this.handleAuth}>
-          {user ? (
-            <button onClick={this.logout}>Log out</button>
-          ) : (
-            <button onClick={this.login}>Log In</button>
+              <Denominations
+                denominations={denominations}
+                denomination={denomination}
+                handleChange={this.handleDenominationChange}
+              />
+
+              <Totals coins={coins}>
+                {({ total, owned, percentage }) => (
+                  <p>
+                    Total {owned} of {total} ({percentage}%)
+                  </p>
+                )}
+              </Totals>
+
+              <Totals
+                coins={coinHelper.filterByDenomination(coins, denomination)}
+              >
+                {({ total, owned, percentage }) => (
+                  <p>
+                    {denomination} Total {owned} of {total} ({percentage}%)
+                  </p>
+                )}
+              </Totals>
+            </FiltersWrapper>
           )}
-        </form>
+        </Header>
 
-        {isLoading && <p>Loading</p>}
-
-        {user && (
-          <div>
-            <Filters
-              handleSubmit={this.handleFilterSubmit}
-              handleChange={this.handleFilterChange}
-              filter={filter}
-            />
-
-            <CoinList
-              handleSubmit={this.handleCoinSubmit}
-              handleOwnedChange={this.handleOwnedChange}
-              {...this.state}
-            />
-          </div>
-        )}
-      </div>
+        <ContentWrapper>
+          {user && (
+            <CoinContext.Provider value={this.handleOwnedChange}>
+              <CoinList coins={filteredCoins} />
+            </CoinContext.Provider>
+          )}
+        </ContentWrapper>
+      </LoadingContext.Provider>
     );
   }
 }

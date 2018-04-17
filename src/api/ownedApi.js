@@ -1,12 +1,12 @@
-import { db } from './firebaseService';
+import { api } from './firebaseApi';
 
 export const addOwned = async (userId, coinId) => {
-  const owned = await db.collection('owned').add({ userId, coinId });
+  const owned = await api.collection('owned').add({ userId, coinId });
   return owned.id;
 };
 
 export const getOwned = async userId => {
-  const ownedRef = await db
+  const ownedRef = await api
     .collection('owned')
     .where('userId', '==', userId)
     .get();
@@ -27,7 +27,7 @@ export const getOwned = async userId => {
 };
 
 export const removeOwned = async (userId, coinId) => {
-  const ownedRef = await db
+  const ownedRef = await api
     .collection('owned')
     .where('userId', '==', userId)
     .where('coinId', '==', coinId)

@@ -1,64 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Fieldset } from 'glamorous';
+
+import { CoinListWrapper } from '../styles';
+import LoadingContext from '../context/loadingContext';
+
 import Coin from './Coin';
 
-const filterNeeded = (coins, owned) =>
-  coins.filter(c => owned.find(o => o.coinId === c.id) === undefined);
-
-const filterOwned = (coins, owned) =>
-  coins.filter(c => owned.find(o => o.coinId === c.id) !== undefined);
-
-const filterCoins = (filter, coins, owned) => {
-  switch (filter) {
-    case 'onlyNeeded':
-      return filterNeeded(coins, owned);
-    case 'onlyOwned':
-      return filterOwned(coins, owned);
-    default:
-      return coins;
-  }
-};
-
-const CoinList = ({
-  coins,
-  owned,
-  filter,
-  handleOwnedChange,
-  handleSubmit
-}) => {
-  const filtered = filterCoins(filter, coins, owned);
-
-  return filtered.length > 0 ? (
-    <form onSubmit={handleSubmit}>
-      <ul>
-        {filtered.map(coin => (
-          <Coin
-            key={coin.id}
-            coin={coin}
-            owned={owned}
-            handleOwnedChange={handleOwnedChange}
-          />
-        ))}
-      </ul>
-
-      <button type="submit">Submit</button>
-    </form>
+const CoinList = ({ coins }) =>
+  coins.length > 0 ? (
+    <LoadingContext.Consumer>
+      {isLoading => (
+        <form>
+          <Fieldset border="none" padding={0} disabled={isLoading}>
+            <CoinListWrapper>
+              {coins.map(coin => <Coin key={coin.id} coin={coin} />)}
+            </CoinListWrapper>
+          </Fieldset>
+        </form>
+      )}
+    </LoadingContext.Consumer>
   ) : (
     <p>No coins found</p>
   );
-};
 
 CoinList.propTypes = {
-  coins: PropTypes.array,
-  owned: PropTypes.array,
-  filter: PropTypes.string.isRequired,
-  handleOwnedChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired
+  coins: PropTypes.array
 };
 
 CoinList.defaultProps = {
-  coins: [],
-  owned: []
+  coins: []
 };
 
 export default CoinList;
