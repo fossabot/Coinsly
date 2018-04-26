@@ -9,6 +9,9 @@ if (!firebase.apps.length) {
   });
 }
 
-export const api = firebase.firestore();
+const firestore = firebase.firestore();
+firestore.settings({ timestampsInSnapshots: true });
+
+export const api = firestore;
 export const GoogleAuthProvider = new firebase.auth.GoogleAuthProvider();
 export const auth = firebase.auth();
