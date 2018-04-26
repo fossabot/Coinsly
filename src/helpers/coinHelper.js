@@ -6,9 +6,7 @@ const filterByDenomination = (coins, denomination) =>
   coins.filter(coin => coin.denomination === denomination);
 
 const filterCoins = (filter, coins, denomination) => {
-  const byDenomination = coins.filter(
-    coin => coin.denomination === denomination
-  );
+  const byDenomination = filterByDenomination(coins, denomination);
 
   switch (filter) {
     case 'Needed':
@@ -16,7 +14,7 @@ const filterCoins = (filter, coins, denomination) => {
     case 'Owned':
       return filterOwned(byDenomination);
     default:
-      return [...byDenomination];
+      return byDenomination;
   }
 };
 
@@ -32,12 +30,11 @@ const addOwnedId = (coins, coinId, ownedId) => {
 };
 
 const removeOwnedId = (coins, coinId) => {
-  const coinsCopy = [...coins];
-  const coin = coinsCopy.find(c => c.id === coinId);
-
+  const coin = coins.find(c => c.id === coinId);
   // Returns a new object called `newCoin` which is a copy of `coin` without the `ownedId` property
   const { ownedId, ...newCoin } = coin;
-  const index = coinsCopy.findIndex(c => c.id === coinId);
+  const index = coins.findIndex(c => c.id === coinId);
+  const coinsCopy = [...coins];
 
   coinsCopy[index] = newCoin;
 

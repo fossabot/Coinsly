@@ -24,4 +24,8 @@ Filters.propTypes = {
   handleChange: PropTypes.func.isRequired
 };
 
+Filters.defaultProps = {
+  filters: []
+};
+
 export default Filters;

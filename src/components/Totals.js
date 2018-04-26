@@ -16,7 +16,7 @@ const getTotals = coins => {
   return {
     total: coins.length,
     owned: owned.length,
-    percentage: percentage.toFixed(0)
+    percentage: isNaN(percentage) ? 0 : percentage.toFixed(0)
   };
 };
 
