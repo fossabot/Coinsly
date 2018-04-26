@@ -7,21 +7,24 @@
     "coins",
     "collecting"
   ],
-  "homepage": "https://github.com/DamianMullins/Coinsly",
-  "repository": "git@github.com:DamianMullins/Coinsly.git",
   "author": "Damian Mullins <damian@lowflyingowls.co.uk>",
   "license": "MIT",
+  "homepage": "https://coinsly.co.uk",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DamianMullins/Coinsly.git"
+  },
   "dependencies": {
-    "firebase": "4.12.1",
-    "glamor": "^2.20.40",
-    "glamorous": "^4.12.3",
+    "firebase": "4.13.1",
+    "glamor": "2.20.40",
+    "glamorous": "4.12.4",
     "react": "16.3.2",
     "react-dom": "16.3.2"
   },
   "devDependencies": {
     "coveralls": "3.0.0",
     "react-scripts": "1.1.4",
-    "react-testing-library": "2.1.1"
+    "react-testing-library": "2.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
