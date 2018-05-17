@@ -2,19 +2,22 @@
 
 exports[`coin markup is correct 1`] = `
 <li
-  class="css-1o8z3u7"
+  class="css-195u3bx"
 >
-  <h3>
-    B - Bond... James Bond
-  </h3>
   <label
     data-testid="coin-label"
+    class="css-7a8vid"
   >
+    <h3
+      data-testid="coin-label"
+    >
+      Kew Gardens
+    </h3>
     <input
       type="checkbox"
+      style="display: none;"
       value="2"
     />
-    I own this
   </label>
 </li>
 `;

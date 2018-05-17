@@ -24,6 +24,7 @@ const addOwnedId = (coins, coinId, ownedId) => {
 
   if (coin) {
     coin.ownedId = ownedId;
+    coin.owned = true;
   }
 
   return coinsCopy;
@@ -33,6 +34,7 @@ const removeOwnedId = (coins, coinId) => {
   const coin = coins.find(c => c.id === coinId);
   // Returns a new object called `newCoin` which is a copy of `coin` without the `ownedId` property
   const { ownedId, ...newCoin } = coin;
+  newCoin.owned = false;
   const index = coins.findIndex(c => c.id === coinId);
   const coinsCopy = [...coins];
 
@@ -42,7 +44,15 @@ const removeOwnedId = (coins, coinId) => {
 };
 
 const getDenominations = coins => [
-  ...new Set(coins.map(coin => coin.denomination))
+  ...new Set(
+    coins.reduce((prev, coin) => {
+      if (coin.denomination) {
+        prev.push(coin.denomination);
+      }
+
+      return prev;
+    }, [])
+  )
 ];
 
 export default {

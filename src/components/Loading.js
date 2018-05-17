@@ -9,7 +9,7 @@ const Loading = () => (
     {isLoading => (
       <P
         margin={0}
-        position="absolute"
+        position="fixed"
         left={spacing.base}
         top={spacing.base}
         display={!isLoading && 'none'}

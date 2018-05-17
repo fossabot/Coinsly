@@ -23,7 +23,8 @@ export const getCoins = async userId => {
       denomination,
       name,
       year,
-      ...(owned && { ownedId: owned.id })
+      ...(owned && { ownedId: owned.id }),
+      owned: owned !== undefined
     });
   });
 

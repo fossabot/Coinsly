@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { FilterLabel } from '../styles';
+
 const Filters = ({ filters, filter, handleChange }) => (
   <form>
     {filters.map(filterName => (
-      <label key={filterName}>
+      <FilterLabel key={filterName} selected={filter === filterName}>
         {filterName}
         <input
           type="radio"
@@ -12,8 +14,9 @@ const Filters = ({ filters, filter, handleChange }) => (
           value={filterName}
           checked={filter === filterName}
           onChange={handleChange}
+          style={{ display: 'none' }}
         />
-      </label>
+      </FilterLabel>
     ))}
   </form>
 );

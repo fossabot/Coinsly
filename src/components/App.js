@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import { ContentWrapper } from '../styles';
 import auth, { login, logout } from '../api/authApi';
@@ -6,12 +6,13 @@ import { getCoins } from '../api/coinApi';
 import { addOwned, removeOwned } from '../api/ownedApi';
 import coinHelper from '../helpers/coinHelper';
 
+import Loading from './Loading';
 import Header from './Header';
 import Filters from './Filters';
 import Denominations from './Denominations';
 import Totals from './Totals';
 import CoinList from './CoinList';
-import { FiltersWrapper } from '../styles';
+import { TotalsWrapper } from '../styles';
 import CoinContext from '../context/coinContext';
 import LoadingContext from '../context/loadingContext';
 
@@ -145,6 +146,8 @@ class App extends Component {
 
     return (
       <LoadingContext.Provider value={isLoading}>
+        <Loading />
+
         <Header
           title="Coinsly"
           user={user}
@@ -153,7 +156,7 @@ class App extends Component {
           handleAuth={this.handleAuth}
         >
           {user && (
-            <FiltersWrapper>
+            <Fragment>
               <Filters
                 filters={filters}
                 filter={filter}
@@ -166,24 +169,26 @@ class App extends Component {
                 handleChange={this.handleDenominationChange}
               />
 
-              <Totals coins={coins}>
-                {({ total, owned, percentage }) => (
-                  <p>
-                    Total {owned} of {total} ({percentage}%)
-                  </p>
-                )}
-              </Totals>
+              <TotalsWrapper>
+                <Totals coins={coins}>
+                  {({ total, owned, percentage }) => (
+                    <p>
+                      Total {owned} of {total} ({percentage}%)
+                    </p>
+                  )}
+                </Totals>
 
-              <Totals
-                coins={coinHelper.filterByDenomination(coins, denomination)}
-              >
-                {({ total, owned, percentage }) => (
-                  <p>
-                    {denomination} Total {owned} of {total} ({percentage}%)
-                  </p>
-                )}
-              </Totals>
-            </FiltersWrapper>
+                <Totals
+                  coins={coinHelper.filterByDenomination(coins, denomination)}
+                >
+                  {({ total, owned, percentage }) => (
+                    <p>
+                      {denomination} Total {owned} of {total} ({percentage}%)
+                    </p>
+                  )}
+                </Totals>
+              </TotalsWrapper>
+            </Fragment>
           )}
         </Header>
 

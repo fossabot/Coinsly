@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { FilterLabel } from '../styles';
+
 const Denominations = ({ denominations, denomination, handleChange }) => (
   <form>
     {denominations.map(name => (
-      <label key={name}>
+      <FilterLabel key={name} selected={denomination === name}>
         {name}
         <input
           type="radio"
@@ -12,8 +14,9 @@ const Denominations = ({ denominations, denomination, handleChange }) => (
           value={name}
           checked={denomination === name}
           onChange={handleChange}
+          style={{ display: 'none' }}
         />
-      </label>
+      </FilterLabel>
     ))}
   </form>
 );

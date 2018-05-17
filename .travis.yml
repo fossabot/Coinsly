@@ -14,7 +14,7 @@ notifications:
   email: false
 
 script:
-  - yarn test
+  - yarn test:coverage
   - yarn build
 
 after_success:

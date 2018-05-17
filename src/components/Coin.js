@@ -1,26 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { CoinListItem } from '../styles';
 import CoinContext from '../context/coinContext';
 
-const Coin = ({ coin }) => (
-  <CoinListItem>
-    <h3>{coin.name}</h3>
+import { CoinImg, CoinLabel, CoinListItem } from '../styles';
+import coinIcon from '../assets/coin.svg';
 
-    <CoinContext.Consumer>
-      {handleOwnedChange => (
-        <label data-testid="coin-label">
+const Coin = ({ coin }) => (
+  <CoinListItem owned={coin.owned}>
+    <CoinLabel data-testid="coin-label">
+      <CoinImg src={coinIcon} alt=""  />
+
+      <h3 data-testid="coin-label">{coin.name}</h3>
+
+      <CoinContext.Consumer>
+        {handleOwnedChange => (
           <input
             type="checkbox"
-            checked={coin.ownedId !== undefined}
+            checked={coin.owned}
             onChange={handleOwnedChange}
             value={coin.id}
+            style={{ display: 'none' }}
           />
-          I own this
-        </label>
-      )}
-    </CoinContext.Consumer>
+        )}
+      </CoinContext.Consumer>
+    </CoinLabel>
   </CoinListItem>
 );
 

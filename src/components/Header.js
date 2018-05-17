@@ -5,11 +5,9 @@ import { Img, Form } from 'glamorous';
 import {
   HeaderWrapper,
   HeaderDetailsWrapper,
+  SiteTitle,
   UserDetailsWrapper
 } from '../styles';
-import Loading from './Loading';
-
-import logo from '../assets/logo--small.png';
 
 const Header = ({
   title,
@@ -21,9 +19,7 @@ const Header = ({
 }) => (
   <HeaderWrapper>
     <HeaderDetailsWrapper>
-      <Img src={logo} alt={title} />
-
-      <Loading />
+      <SiteTitle>Coinsly</SiteTitle>
 
       <UserDetailsWrapper>
         <Form onSubmit={handleAuth} display="flex" alignItems="center">
