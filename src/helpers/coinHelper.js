@@ -32,6 +32,9 @@ const addOwnedId = (coins, coinId, ownedId) => {
 
 const removeOwnedId = (coins, coinId) => {
   const coin = coins.find(c => c.id === coinId);
+
+  if (!coin) return [...coins];
+
   // Returns a new object called `newCoin` which is a copy of `coin` without the `ownedId` property
   const { ownedId, ...newCoin } = coin;
   newCoin.owned = false;

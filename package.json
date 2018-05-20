@@ -15,14 +15,15 @@
     "url": "https://github.com/DamianMullins/Coinsly.git"
   },
   "dependencies": {
-    "firebase": "4.13.1",
+    "firebase": "5.0.3",
     "glamor": "2.20.40",
-    "glamorous": "4.12.4",
+    "glamorous": "4.13.0",
     "react": "16.3.2",
     "react-dom": "16.3.2"
   },
   "devDependencies": {
     "coveralls": "3.0.0",
+    "jest-glamor-react": "4.3.0",
     "react-scripts": "1.1.4",
     "react-testing-library": "2.2.0"
   },
@@ -33,5 +34,8 @@
     "test:coverage": "react-scripts test --env=jsdom --testMatch=\"**/*.test.js\" --coverage",
     "test:coveralls": "cat coverage/lcov.info | coveralls",
     "eject": "react-scripts eject"
+  },
+  "jest": {
+    "snapshotSerializers": ["jest-glamor-react"]
   }
 }

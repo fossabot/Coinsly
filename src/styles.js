@@ -109,6 +109,7 @@ export const ContentWrapper = glamorous.div({
 export const CoinListWrapper = glamorous.ul({
   display: 'flex',
   flexDirection: 'column',
+  flexWrap: 'wrap',
   justifyContent: 'space-between',
   listStyleType: 'none',
   margin: 0,

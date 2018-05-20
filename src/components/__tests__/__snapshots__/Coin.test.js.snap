@@ -1,13 +1,54 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`coin markup is correct 1`] = `
+.css-0,
+[data-css-0] {
+  flex-basis: 24%;
+  flex-grow: 0;
+  margin-bottom: 10px;
+  color: #b8bebb;
+  background-color: #454949;
+  -webkit-flex-basis: 24%;
+  -webkit-flex-grow: 0;
+}
+
+.css-0:hover,
+[data-css-0]:hover {
+  color: #fff;
+  background-color: #555858;
+}
+
+.css-2,
+[data-css-2] {
+  display: block;
+  padding: 10px;
+}
+
+.css-2:hover,
+[data-css-2]:hover {
+  cursor: pointer;
+}
+
+.css-4,
+[data-css-4] {
+  display: block;
+  margin: 30px auto;
+  max-width: 150px;
+  width: 70%;
+}
+
 <li
-  class="css-195u3bx"
+  class="css-0"
 >
   <label
     data-testid="coin-label"
-    class="css-7a8vid"
+    class="css-2"
   >
+    <img
+      src="coin.svg"
+      alt=""
+      class="css-4"
+    />
     <h3
       data-testid="coin-label"
     >
