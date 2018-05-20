@@ -31,7 +31,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "test:coverage": "react-scripts test --env=jsdom --testMatch=\"**/*.test.js\" --coverage",
+    "test:coverage": "yarn test --coverage",
     "test:coveralls": "cat coverage/lcov.info | coveralls",
     "eject": "react-scripts eject"
   },
