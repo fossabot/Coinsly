@@ -8,12 +8,11 @@ import coinHelper from '../helpers/coinHelper';
 
 import Loading from './Loading';
 import Header from './Header';
-import Filters from './Filters';
+import Menu from './Menu';
 import Denominations from './Denominations';
 import Totals from './Totals';
 import CoinList from './CoinList';
-import { TotalsWrapper } from '../styles';
-import CoinContext from '../context/coinContext';
+import { MainWrapper, TotalsWrapper } from '../styles';
 import LoadingContext from '../context/loadingContext';
 
 class App extends Component {
@@ -23,6 +22,7 @@ class App extends Component {
     this.defaultState = {
       user: null,
       isLoading: false,
+      menuOpen: false,
       coins: [],
       filteredCoins: [],
       filter: '',
@@ -106,6 +106,13 @@ class App extends Component {
     e.preventDefault();
   };
 
+  handleMenuToggle = () => {
+    console.log('hi');
+    this.setState(prevState => ({
+      menuOpen: !prevState.menuOpen
+    }));
+  };
+
   handleFilterChange = e => {
     this.setState({ filter: e.target.value });
   };
@@ -136,6 +143,7 @@ class App extends Component {
     const {
       user,
       isLoading,
+      menuOpen,
       coins,
       filteredCoins,
       filters,
@@ -148,57 +156,62 @@ class App extends Component {
       <LoadingContext.Provider value={isLoading}>
         <Loading />
 
-        <Header
-          title="Coinsly"
-          user={user}
-          login={this.login}
-          logout={this.logout}
-          handleAuth={this.handleAuth}
-        >
-          {user && (
-            <Fragment>
-              <Filters
-                filters={filters}
-                filter={filter}
-                handleChange={this.handleFilterChange}
+        <Menu
+          menuOpen={menuOpen}
+          filters={filters}
+          filter={filter}
+          handleChange={this.handleFilterChange}
+        />
+
+        <MainWrapper menuOpen={menuOpen}>
+          <Header
+            title="Coinsly"
+            user={user}
+            login={this.login}
+            logout={this.logout}
+            handleAuth={this.handleAuth}
+            handleMenuToggle={this.handleMenuToggle}
+          >
+            {user && (
+              <Fragment>
+                <Denominations
+                  denominations={denominations}
+                  denomination={denomination}
+                  handleChange={this.handleDenominationChange}
+                />
+
+                <TotalsWrapper>
+                  <Totals coins={coins}>
+                    {({ total, owned, percentage }) => (
+                      <p>
+                        Total {owned} of {total} ({percentage}%)
+                      </p>
+                    )}
+                  </Totals>
+
+                  <Totals
+                    coins={coinHelper.filterByDenomination(coins, denomination)}
+                  >
+                    {({ total, owned, percentage }) => (
+                      <p>
+                        {denomination} Total {owned} of {total} ({percentage}%)
+                      </p>
+                    )}
+                  </Totals>
+                </TotalsWrapper>
+              </Fragment>
+            )}
+          </Header>
+
+          <ContentWrapper>
+            {user && (
+              <CoinList
+                coins={filteredCoins}
+                handleOwnedChange={this.handleOwnedChange}
               />
-
-              <Denominations
-                denominations={denominations}
-                denomination={denomination}
-                handleChange={this.handleDenominationChange}
-              />
-
-              <TotalsWrapper>
-                <Totals coins={coins}>
-                  {({ total, owned, percentage }) => (
-                    <p>
-                      Total {owned} of {total} ({percentage}%)
-                    </p>
-                  )}
-                </Totals>
-
-                <Totals
-                  coins={coinHelper.filterByDenomination(coins, denomination)}
-                >
-                  {({ total, owned, percentage }) => (
-                    <p>
-                      {denomination} Total {owned} of {total} ({percentage}%)
-                    </p>
-                  )}
-                </Totals>
-              </TotalsWrapper>
-            </Fragment>
-          )}
-        </Header>
-
-        <ContentWrapper>
-          {user && (
-            <CoinContext.Provider value={this.handleOwnedChange}>
-              <CoinList coins={filteredCoins} />
-            </CoinContext.Provider>
-          )}
-        </ContentWrapper>
+            )}
+          </ContentWrapper>
+        </MainWrapper>
       </LoadingContext.Provider>
     );
   }

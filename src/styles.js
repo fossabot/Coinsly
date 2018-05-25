@@ -1,11 +1,22 @@
 import glamorous from 'glamorous';
 import { css } from 'glamor';
 
+const colors = {
+  grey_darkest: '#252626',
+  grey_dark: '#313535',
+  grey: '#454949',
+  grey_light: '#555858',
+  grey_lightest: '#b8bebb',
+  green: '#7ABE94',
+  warn: '#EF946C',
+  white: '#fff'
+};
+
 css.global('*', { boxSizing: 'border-box' });
 css.global('html', { fontSize: 16 });
 css.global('body', {
-  backgroundColor: '#313535',
-  color: '#fff',
+  backgroundColor: colors.grey_dark,
+  color: colors.white,
   fontFamily:
     '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
   lineHeight: 1.6,
@@ -13,13 +24,9 @@ css.global('body', {
 });
 css.global('h1, h2, h3, h4, h5, h6', { margin: 0, lineHeight: 1.2 });
 css.global('p', { margin: '0 0 1rem' });
+css.global('button', { color: colors.white });
 
 const baseSpacing = 10;
-
-// const headerHeight = {
-//   narrow: 200,
-//   mid: 130
-// };
 
 export const mediaQueries = {
   narrow: '@media only screen and (min-width: 400px)',
@@ -33,19 +40,51 @@ export const spacing = {
   x3: baseSpacing * 3
 };
 
+const menuWidth = 200;
+
+export const MenuWrapper = glamorous.ul(
+  {
+    backgroundColor: colors.grey,
+    height: '100vh',
+    margin: 0,
+    position: 'absolute',
+    transition: 'margin-left 350ms',
+    zIndex: 2
+  },
+  ({ menuOpen }) => ({
+    width: '100%',
+    left: menuOpen ? 0 : '-100%',
+    marginLeft: 0,
+
+    [mediaQueries.mid]: {
+      marginLeft: menuOpen ? 0 : `-${menuWidth}`,
+      width: menuWidth
+    }
+  })
+);
+
+export const MenuToggle = glamorous.button({
+  zIndex: 1
+});
+
+export const MainWrapper = glamorous.div(
+  {
+    transition: 'margin-left 350ms'
+  },
+  ({ menuOpen }) => ({
+    marginLeft: 0,
+
+    [mediaQueries.mid]: {
+      marginLeft: menuOpen ? menuWidth : 0
+    }
+  })
+);
+
 export const HeaderWrapper = glamorous.header({
-  backgroundColor: '#252626',
-  // borderBottom: 'solid 1px #aaa',
-  // height: headerHeight.narrow,
+  backgroundColor: colors.grey_darkest,
   padding: spacing.x2,
   paddingBottom: 0,
-  // position: 'fixed',
-  // top: 0,
   width: '100%'
-
-  // [mediaQueries.mid]: {
-  //   height: headerHeight.mid
-  // }
 });
 
 export const HeaderDetailsWrapper = glamorous.div({
@@ -89,51 +128,58 @@ export const FilterLabel = glamorous.label(
     marginBottom: spacing.base,
     padding: spacing.base,
     ':hover': {
-      backgroundColor: '#3c4352'
+      backgroundColor: colors.grey_light
     }
   },
   ({ selected }) => ({
-    backgroundColor: selected ? '#3c4352' : '#262b35'
+    backgroundColor: selected ? colors.grey_light : colors.grey
   })
 );
 
 export const ContentWrapper = glamorous.div({
-  // marginTop: headerHeight.narrow,
   padding: spacing.x2
-
-  // [mediaQueries.mid]: {
-  //   marginTop: headerHeight.mid
-  // }
 });
 
 export const CoinListWrapper = glamorous.ul({
   display: 'flex',
   flexDirection: 'column',
-  flexWrap: 'wrap',
   justifyContent: 'space-between',
   listStyleType: 'none',
   margin: 0,
   padding: 0,
 
   [mediaQueries.mid]: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    flexWrap: 'wrap'
   }
 });
 
-const activeCoin = ({ active }) => ({
-  color: active ? '#fff' : '#b8bebb',
-  backgroundColor: active ? '#555858' : '#454949'
+const activeCoin = ({ active, owned }) => ({
+  color: active ? colors.white : colors.grey_lightest,
+  backgroundColor: active ? colors.grey_light : colors.grey,
+  border: `solid 5px ${owned ? colors.green : colors.grey_light}`
 });
 
 export const CoinListItem = glamorous.li(
   {
-    flexBasis: '24%',
+    borderRadius: 3,
+    flexBasis: '19%',
     flexGrow: 0,
     marginBottom: spacing.base,
     ':hover': activeCoin({ active: true })
   },
-  ({ owned }) => activeCoin({ active: owned })
+  ({ owned }) => ({
+    ...activeCoin({ owned }),
+    ':hover': activeCoin({ owned, active: true })
+  })
 );
+
+export const TickImage = glamorous.img({
+  left: spacing.base,
+  position: 'absolute',
+  top: spacing.base,
+  width: 50
+});
 
 export const CoinImg = glamorous.img({
   display: 'block',
@@ -145,5 +191,6 @@ export const CoinImg = glamorous.img({
 export const CoinLabel = glamorous.label({
   display: 'block',
   padding: spacing.base,
+  position: 'relative',
   ':hover': { cursor: 'pointer' }
 });

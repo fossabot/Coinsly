@@ -7,14 +7,20 @@ import LoadingContext from '../context/loadingContext';
 
 import Coin from './Coin';
 
-const CoinList = ({ coins }) =>
+const CoinList = ({ coins, handleOwnedChange }) =>
   coins.length > 0 ? (
     <LoadingContext.Consumer>
       {isLoading => (
         <form>
           <Fieldset border="none" padding={0} disabled={isLoading}>
             <CoinListWrapper>
-              {coins.map(coin => <Coin key={coin.id} coin={coin} />)}
+              {coins.map(coin => (
+                <Coin
+                  key={coin.id}
+                  coin={coin}
+                  handleOwnedChange={handleOwnedChange}
+                />
+              ))}
             </CoinListWrapper>
           </Fieldset>
         </form>
@@ -25,7 +31,8 @@ const CoinList = ({ coins }) =>
   );
 
 CoinList.propTypes = {
-  coins: PropTypes.array
+  coins: PropTypes.array,
+  handleOwnedChange: PropTypes.func.isRequired
 };
 
 CoinList.defaultProps = {

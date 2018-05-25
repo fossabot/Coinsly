@@ -6,6 +6,7 @@ import {
   HeaderWrapper,
   HeaderDetailsWrapper,
   SiteTitle,
+  MenuToggle,
   UserDetailsWrapper
 } from '../styles';
 
@@ -15,11 +16,16 @@ const Header = ({
   login,
   logout,
   handleAuth,
+  handleMenuToggle,
   children
 }) => (
   <HeaderWrapper>
     <HeaderDetailsWrapper>
       <SiteTitle>Coinsly</SiteTitle>
+
+      <MenuToggle type="button" onClick={handleMenuToggle}>
+        Menu
+      </MenuToggle>
 
       <UserDetailsWrapper>
         <Form onSubmit={handleAuth} display="flex" alignItems="center">
@@ -29,7 +35,12 @@ const Header = ({
               <button type="submit" onClick={logout}>
                 Log out
               </button>
-              <Img width={50} src={user.photoURL} alt={user.email} borderRadius='50%' />
+              <Img
+                width={50}
+                src={user.photoURL}
+                alt={user.email}
+                borderRadius="50%"
+              />
             </Fragment>
           ) : (
             <button type="submit" onClick={login}>
@@ -48,6 +59,7 @@ Header.propTypes = {
   title: PropTypes.string.isRequired,
   user: PropTypes.object,
   handleAuth: PropTypes.func.isRequired,
+  handleMenuToggle: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   children: PropTypes.object
