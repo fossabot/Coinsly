@@ -9,10 +9,8 @@ import coinHelper from '../helpers/coinHelper';
 import Loading from './Loading';
 import Header from './Header';
 import Menu from './Menu';
-import Denominations from './Denominations';
-import Totals from './Totals';
 import CoinList from './CoinList';
-import { MainWrapper, TotalsWrapper } from '../styles';
+import { MainWrapper, TopRightButton } from '../styles';
 import LoadingContext from '../context/loadingContext';
 
 class App extends Component {
@@ -26,6 +24,7 @@ class App extends Component {
       coins: [],
       filteredCoins: [],
       filter: '',
+      filters: [],
       denominations: [],
       denomination: ''
     };
@@ -156,52 +155,40 @@ class App extends Component {
       <LoadingContext.Provider value={isLoading}>
         <Loading />
 
-        <Menu
-          menuOpen={menuOpen}
-          filters={filters}
-          filter={filter}
-          handleChange={this.handleFilterChange}
-        />
+        {user ? (
+          <Fragment>
+            <Menu
+              menuOpen={menuOpen}
+              user={user}
+              login={this.login}
+              logout={this.logout}
+              handleAuth={this.handleAuth}
+              filters={filters}
+              filter={filter}
+              handleFilterChange={this.handleFilterChange}
+              denominations={denominations}
+              denomination={denomination}
+              handleDenominationChange={this.handleDenominationChange}
+            />
+
+            <TopRightButton type="button" onClick={this.handleMenuToggle}>
+              Menu
+            </TopRightButton>
+          </Fragment>
+        ) : (
+          <TopRightButton type="submit" onClick={login}>
+            Log In
+          </TopRightButton>
+        )}
 
         <MainWrapper menuOpen={menuOpen}>
           <Header
             title="Coinsly"
-            user={user}
-            login={this.login}
-            logout={this.logout}
-            handleAuth={this.handleAuth}
-            handleMenuToggle={this.handleMenuToggle}
-          >
-            {user && (
-              <Fragment>
-                <Denominations
-                  denominations={denominations}
-                  denomination={denomination}
-                  handleChange={this.handleDenominationChange}
-                />
-
-                <TotalsWrapper>
-                  <Totals coins={coins}>
-                    {({ total, owned, percentage }) => (
-                      <p>
-                        Total {owned} of {total} ({percentage}%)
-                      </p>
-                    )}
-                  </Totals>
-
-                  <Totals
-                    coins={coinHelper.filterByDenomination(coins, denomination)}
-                  >
-                    {({ total, owned, percentage }) => (
-                      <p>
-                        {denomination} Total {owned} of {total} ({percentage}%)
-                      </p>
-                    )}
-                  </Totals>
-                </TotalsWrapper>
-              </Fragment>
-            )}
-          </Header>
+            coins={coins}
+            denominations={denominations}
+            denomination={denomination}
+            handleDenominationChange={this.handleDenominationChange}
+          />
 
           <ContentWrapper>
             {user && (

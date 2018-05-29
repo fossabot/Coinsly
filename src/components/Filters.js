@@ -8,6 +8,7 @@ const Filters = ({ filters, filter, handleChange }) => (
     {filters.map(filterName => (
       <FilterLabel key={filterName} selected={filter === filterName}>
         {filterName}
+
         <input
           type="radio"
           name="filter"
@@ -25,10 +26,6 @@ Filters.propTypes = {
   filters: PropTypes.array.isRequired,
   filter: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired
-};
-
-Filters.defaultProps = {
-  filters: []
 };
 
 export default Filters;

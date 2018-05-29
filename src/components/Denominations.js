@@ -8,6 +8,7 @@ const Denominations = ({ denominations, denomination, handleChange }) => (
     {denominations.map(name => (
       <FilterLabel key={name} selected={denomination === name}>
         {name}
+
         <input
           type="radio"
           name="denomination"
