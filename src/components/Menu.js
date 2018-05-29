@@ -10,7 +10,6 @@ import { MenuWrapper, MenuItem, LightButton } from '../styles';
 const Menu = ({
   menuOpen,
   user,
-  login,
   logout,
   handleAuth,
   filters,
@@ -68,7 +67,6 @@ Menu.propTypes = {
   menuOpen: PropTypes.bool.isRequired,
   user: PropTypes.object,
   handleAuth: PropTypes.func.isRequired,
-  login: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   filters: PropTypes.array.isRequired,
   filter: PropTypes.string.isRequired,

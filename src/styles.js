@@ -65,7 +65,7 @@ export const zIndexes = {
   loading: 99
 };
 
-const headerHeight = 75;
+const headerHeight = 120;
 const menuWidth = 250;
 
 /**
@@ -85,10 +85,10 @@ export const LightButton = glamorous.button({
   ...buttonBase,
   backgroundColor: colors.grey_darkest
 });
-export const TopRightButton = glamorous.button({
+export const TopLeftButton = glamorous.button({
   ...buttonBase,
   position: 'absolute',
-  right: spacing.x2,
+  left: spacing.x2,
   top: spacing.x2,
   zIndex: zIndexes.menuToggle
 });
@@ -102,7 +102,7 @@ export const LoadingWrapper = glamorous.p(
     color: colors.white,
     margin: 0,
     position: 'fixed',
-    left: spacing.base,
+    right: spacing.base,
     top: spacing.base,
     zIndex: zIndexes.loading
   },
@@ -116,21 +116,20 @@ export const LoadingWrapper = glamorous.p(
  * ----------------
  */
 export const MenuWrapper = glamorous.ul(
-  {
+  ({ menuOpen }) => ({
     backgroundColor: colors.grey,
-    height: '100vh',
+    bottom: 0,
+    left: menuOpen ? 0 : '-100%',
     listStyle: 'none',
     margin: 0,
+    marginLeft: 0,
+    overflow: 'scroll',
     padding: spacing.x2,
-    position: 'absolute',
+    position: 'fixed',
+    right: menuOpen ? 0 : 'auto',
     top: headerHeight,
     transition: 'margin-left 350ms',
-    zIndex: zIndexes.menu
-  },
-  ({ menuOpen }) => ({
-    left: menuOpen ? 0 : '-100%',
-    marginLeft: 0,
-    width: '100%',
+    zIndex: zIndexes.menu,
 
     [mediaQueries.mid]: {
       marginLeft: menuOpen ? 0 : `-${menuWidth}`,
@@ -174,6 +173,7 @@ export const HeaderWrapper = glamorous.header({
   backgroundColor: colors.grey_darkest,
   padding: spacing.x2,
   position: 'fixed',
+  textAlign: 'center',
   top: 0,
   width: '100%',
   zIndex: zIndexes.header
@@ -181,12 +181,11 @@ export const HeaderWrapper = glamorous.header({
 
 export const SiteTitle = glamorous.h1({
   fontSize: '2rem',
-  fontWeight: 'bold',
-  margin: 0
+  fontWeight: 'bold'
 });
 
 /**
- * Filters
+ * Totals
  * ----------------
  */
 export const TotalsWrapper = glamorous.section({
@@ -194,12 +193,21 @@ export const TotalsWrapper = glamorous.section({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
+  paddingTop: spacing.x2,
 
   [mediaQueries.narrow]: {
     flexDirection: 'row'
   }
 });
 
+export const TotalsText = glamorous.p({
+  margin: 0
+});
+
+/**
+ * Filters
+ * ----------------
+ */
 export const FilterLabel = glamorous.label(
   {
     display: 'inline-block',

@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 
 import { ContentWrapper } from '../styles';
 import auth, { login, logout } from '../api/authApi';
@@ -10,7 +10,7 @@ import Loading from './Loading';
 import Header from './Header';
 import Menu from './Menu';
 import CoinList from './CoinList';
-import { MainWrapper, TopRightButton } from '../styles';
+import { MainWrapper } from '../styles';
 import LoadingContext from '../context/loadingContext';
 
 class App extends Component {
@@ -155,35 +155,27 @@ class App extends Component {
       <LoadingContext.Provider value={isLoading}>
         <Loading />
 
-        {user ? (
-          <Fragment>
-            <Menu
-              menuOpen={menuOpen}
-              user={user}
-              login={this.login}
-              logout={this.logout}
-              handleAuth={this.handleAuth}
-              filters={filters}
-              filter={filter}
-              handleFilterChange={this.handleFilterChange}
-              denominations={denominations}
-              denomination={denomination}
-              handleDenominationChange={this.handleDenominationChange}
-            />
-
-            <TopRightButton type="button" onClick={this.handleMenuToggle}>
-              Menu
-            </TopRightButton>
-          </Fragment>
-        ) : (
-          <TopRightButton type="submit" onClick={login}>
-            Log In
-          </TopRightButton>
+        {user && (
+          <Menu
+            menuOpen={menuOpen}
+            user={user}
+            logout={this.logout}
+            handleAuth={this.handleAuth}
+            filters={filters}
+            filter={filter}
+            handleFilterChange={this.handleFilterChange}
+            denominations={denominations}
+            denomination={denomination}
+            handleDenominationChange={this.handleDenominationChange}
+          />
         )}
 
         <MainWrapper menuOpen={menuOpen}>
           <Header
             title="Coinsly"
+            user={user}
+            login={this.login}
+            handleMenuToggle={this.handleMenuToggle}
             coins={coins}
             denominations={denominations}
             denomination={denomination}
