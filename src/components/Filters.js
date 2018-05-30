@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { FilterLabel } from '../styles';
+import { FilterWrapper, FilterLabel } from '../styles';
 
 const Filters = ({ filters, filter, handleChange }) => (
-  <form>
+  <FilterWrapper>
     {filters.map(filterName => (
       <FilterLabel key={filterName} selected={filter === filterName}>
         {filterName}
@@ -19,7 +19,7 @@ const Filters = ({ filters, filter, handleChange }) => (
         />
       </FilterLabel>
     ))}
-  </form>
+  </FilterWrapper>
 );
 
 Filters.propTypes = {

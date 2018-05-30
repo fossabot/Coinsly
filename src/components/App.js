@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import { ContentWrapper } from '../styles';
 import auth, { login, logout } from '../api/authApi';
 import { getCoins } from '../api/coinApi';
 import { addOwned, removeOwned } from '../api/ownedApi';
@@ -101,10 +100,6 @@ class App extends Component {
     this.setDefaultState();
   };
 
-  handleAuth = e => {
-    e.preventDefault();
-  };
-
   handleMenuToggle = () => {
     console.log('hi');
     this.setState(prevState => ({
@@ -159,8 +154,6 @@ class App extends Component {
           <Menu
             menuOpen={menuOpen}
             user={user}
-            logout={this.logout}
-            handleAuth={this.handleAuth}
             filters={filters}
             filter={filter}
             handleFilterChange={this.handleFilterChange}
@@ -170,26 +163,25 @@ class App extends Component {
           />
         )}
 
-        <MainWrapper menuOpen={menuOpen}>
-          <Header
-            title="Coinsly"
-            user={user}
-            login={this.login}
-            handleMenuToggle={this.handleMenuToggle}
-            coins={coins}
-            denominations={denominations}
-            denomination={denomination}
-            handleDenominationChange={this.handleDenominationChange}
-          />
+        <Header
+          title="Coinsly"
+          user={user}
+          login={this.login}
+          logout={this.logout}
+          handleMenuToggle={this.handleMenuToggle}
+          coins={coins}
+          denominations={denominations}
+          denomination={denomination}
+          handleDenominationChange={this.handleDenominationChange}
+        />
 
-          <ContentWrapper>
-            {user && (
-              <CoinList
-                coins={filteredCoins}
-                handleOwnedChange={this.handleOwnedChange}
-              />
-            )}
-          </ContentWrapper>
+        <MainWrapper menuOpen={menuOpen}>
+          {user && (
+            <CoinList
+              coins={filteredCoins}
+              handleOwnedChange={this.handleOwnedChange}
+            />
+          )}
         </MainWrapper>
       </LoadingContext.Provider>
     );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import coinHelper from '../helpers/coinHelper';
@@ -7,15 +7,20 @@ import Totals from './Totals';
 import {
   HeaderWrapper,
   SiteTitle,
+  UserWrapper,
+  UserAvatar,
   TotalsWrapper,
   TotalsText,
-  TopLeftButton
+  MenuButton,
+  LoginButton,
+  LogoutButton
 } from '../styles';
 
 const Header = ({
   title,
   user,
   login,
+  logout,
   handleMenuToggle,
   coins,
   denominations,
@@ -26,33 +31,45 @@ const Header = ({
     <SiteTitle>{title}</SiteTitle>
 
     {user ? (
-      <TopLeftButton type="button" onClick={handleMenuToggle}>
+      <MenuButton type="button" onClick={handleMenuToggle}>
         Menu
-      </TopLeftButton>
+      </MenuButton>
     ) : (
-      <TopLeftButton type="submit" onClick={login}>
+      <LoginButton type="submit" onClick={login}>
         Log In
-      </TopLeftButton>
+      </LoginButton>
     )}
 
     {user && (
-      <TotalsWrapper>
-        <Totals coins={coins}>
-          {({ total, owned, percentage }) => (
-            <TotalsText>
-              <strong>Total coins</strong>: {owned} of {total} ({percentage}%)
-            </TotalsText>
-          )}
-        </Totals>
+      <Fragment>
+        <UserWrapper>
+          <LogoutButton type="submit" onClick={logout}>
+            Log out
+          </LogoutButton>
 
-        <Totals coins={coinHelper.filterByDenomination(coins, denomination)}>
-          {({ total, owned, percentage }) => (
-            <TotalsText>
-              <strong>{denomination}</strong>: {owned} of {total} ({percentage}%)
-            </TotalsText>
-          )}
-        </Totals>
-      </TotalsWrapper>
+          <UserAvatar src={user.photoURL} alt={user.email} />
+        </UserWrapper>
+
+        <TotalsWrapper>
+          <Totals coins={coins}>
+            {({ total, owned, percentage }) => (
+              <TotalsText>
+                <strong>Total coins</strong>: {owned} of {total} ({percentage}%)
+              </TotalsText>
+            )}
+          </Totals>
+
+          <Totals coins={coinHelper.filterByDenomination(coins, denomination)}>
+            {({ total, owned, percentage }) => (
+              <TotalsText>
+                <strong>{denomination}</strong>: {owned} of {total} ({
+                  percentage
+                }%)
+              </TotalsText>
+            )}
+          </Totals>
+        </TotalsWrapper>
+      </Fragment>
     )}
   </HeaderWrapper>
 );
@@ -61,6 +78,7 @@ Header.propTypes = {
   title: PropTypes.string.isRequired,
   user: PropTypes.object,
   login: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
   handleMenuToggle: PropTypes.func.isRequired,
   coins: PropTypes.array.isRequired,
   denominations: PropTypes.array.isRequired,

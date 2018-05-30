@@ -1,17 +1,14 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Img, Form } from 'glamorous';
 
 import Filters from './Filters';
 import Denominations from './Denominations';
 
-import { MenuWrapper, MenuItem, LightButton } from '../styles';
+import { MenuWrapper, MenuItem, MenuHeading } from '../styles';
 
 const Menu = ({
   menuOpen,
   user,
-  logout,
-  handleAuth,
   filters,
   filter,
   handleFilterChange,
@@ -21,28 +18,7 @@ const Menu = ({
 }) => (
   <MenuWrapper menuOpen={menuOpen}>
     <MenuItem>
-      <Form onSubmit={handleAuth} display="flex" alignItems="center">
-        {user && (
-          <Fragment>
-            <Img
-              width={50}
-              src={user.photoURL}
-              alt={user.email}
-              borderRadius="50%"
-            />
-
-            <p>{user.displayName}</p>
-
-            <LightButton type="submit" onClick={logout}>
-              Log out
-            </LightButton>
-          </Fragment>
-        )}
-      </Form>
-    </MenuItem>
-
-    <MenuItem>
-      <h2>Filters</h2>
+      <MenuHeading>Filters</MenuHeading>
 
       <Filters
         filters={filters}
@@ -52,7 +28,7 @@ const Menu = ({
     </MenuItem>
 
     <MenuItem>
-      <h2>Coin Type</h2>
+      <MenuHeading>Coin Type</MenuHeading>
 
       <Denominations
         denominations={denominations}
@@ -66,8 +42,6 @@ const Menu = ({
 Menu.propTypes = {
   menuOpen: PropTypes.bool.isRequired,
   user: PropTypes.object,
-  handleAuth: PropTypes.func.isRequired,
-  logout: PropTypes.func.isRequired,
   filters: PropTypes.array.isRequired,
   filter: PropTypes.string.isRequired,
   handleFilterChange: PropTypes.func.isRequired,

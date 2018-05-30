@@ -11,19 +11,17 @@ const CoinList = ({ coins, handleOwnedChange }) =>
   coins.length > 0 ? (
     <LoadingContext.Consumer>
       {isLoading => (
-        <form>
-          <Fieldset border="none" padding={0} disabled={isLoading}>
-            <CoinListWrapper>
-              {coins.map(coin => (
-                <Coin
-                  key={coin.id}
-                  coin={coin}
-                  handleOwnedChange={handleOwnedChange}
-                />
-              ))}
-            </CoinListWrapper>
-          </Fieldset>
-        </form>
+        <Fieldset border="none" padding={0} disabled={isLoading}>
+          <CoinListWrapper>
+            {coins.map(coin => (
+              <Coin
+                key={coin.id}
+                coin={coin}
+                handleOwnedChange={handleOwnedChange}
+              />
+            ))}
+          </CoinListWrapper>
+        </Fieldset>
       )}
     </LoadingContext.Consumer>
   ) : (
@@ -33,10 +31,6 @@ const CoinList = ({ coins, handleOwnedChange }) =>
 CoinList.propTypes = {
   coins: PropTypes.array,
   handleOwnedChange: PropTypes.func.isRequired
-};
-
-CoinList.defaultProps = {
-  coins: []
 };
 
 export default CoinList;

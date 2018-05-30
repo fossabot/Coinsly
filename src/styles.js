@@ -51,9 +51,10 @@ export const mediaQueries = {
 };
 
 const baseSpacing = 10;
+const borderRadius = 3;
 
 export const spacing = {
-  base: baseSpacing,
+  x1: baseSpacing,
   x2: baseSpacing * 2,
   x3: baseSpacing * 3
 };
@@ -75,22 +76,21 @@ const menuWidth = 250;
 const buttonBase = {
   backgroundColor: colors.grey,
   border: 'none',
-  borderRadius: 3,
+  borderRadius,
   color: colors.white,
-  padding: spacing.base
+  padding: spacing.x1
 };
 
 export const Button = glamorous.button(buttonBase);
-export const LightButton = glamorous.button({
+export const LogoutButton = glamorous.button({
   ...buttonBase,
-  backgroundColor: colors.grey_darkest
+  display: 'none'
 });
-export const TopLeftButton = glamorous.button({
+export const LoginButton = glamorous.button({
   ...buttonBase,
   position: 'absolute',
-  left: spacing.x2,
-  top: spacing.x2,
-  zIndex: zIndexes.menuToggle
+  right: spacing.x2,
+  top: spacing.x2
 });
 
 /**
@@ -102,8 +102,8 @@ export const LoadingWrapper = glamorous.p(
     color: colors.white,
     margin: 0,
     position: 'fixed',
-    right: spacing.base,
-    top: spacing.base,
+    right: spacing.x1,
+    top: spacing.x1,
     zIndex: zIndexes.loading
   },
   ({ isLoading }) => ({
@@ -112,57 +112,16 @@ export const LoadingWrapper = glamorous.p(
 );
 
 /**
- * Menu
- * ----------------
- */
-export const MenuWrapper = glamorous.ul(
-  ({ menuOpen }) => ({
-    backgroundColor: colors.grey,
-    bottom: 0,
-    left: menuOpen ? 0 : '-100%',
-    listStyle: 'none',
-    margin: 0,
-    marginLeft: 0,
-    overflow: 'scroll',
-    padding: spacing.x2,
-    position: 'fixed',
-    right: menuOpen ? 0 : 'auto',
-    top: headerHeight,
-    transition: 'margin-left 350ms',
-    zIndex: zIndexes.menu,
-
-    [mediaQueries.mid]: {
-      marginLeft: menuOpen ? 0 : `-${menuWidth}`,
-      top: 0,
-      width: menuWidth
-    }
-  })
-);
-
-export const MenuItem = glamorous.li({
-  marginBottom: spacing.x2
-});
-
-/**
  * Layout
  * ----------------
  */
-export const MainWrapper = glamorous.div(
-  {
-    transition: 'margin-left 350ms'
-  },
-  ({ menuOpen }) => ({
-    marginLeft: 0,
-
-    [mediaQueries.mid]: {
-      marginLeft: menuOpen ? menuWidth : 0
-    }
-  })
-);
-
-export const ContentWrapper = glamorous.div({
+export const MainWrapper = glamorous.div({
   marginTop: headerHeight,
-  padding: spacing.x2
+  padding: spacing.x2,
+
+  [mediaQueries.mid]: {
+    marginLeft: menuWidth
+  }
 });
 
 /**
@@ -184,6 +143,98 @@ export const SiteTitle = glamorous.h1({
   fontWeight: 'bold'
 });
 
+export const UserWrapper = glamorous.div({
+  alignItems: 'center',
+  display: 'flex',
+  right: spacing.x2,
+  position: 'absolute',
+  top: spacing.x2
+});
+
+export const UserAvatar = glamorous.img({
+  borderRadius: '50%',
+  marginLeft: spacing.x2,
+  width: 50
+});
+
+/**
+ * Menu
+ * ----------------
+ */
+export const MenuWrapper = glamorous.ul(
+  {
+    backgroundColor: colors.grey,
+    bottom: 0,
+    left: 0,
+    listStyle: 'none',
+    margin: 0,
+    overflow: 'auto',
+    padding: spacing.x2,
+    position: 'fixed',
+    top: headerHeight,
+    // transition: 'margin-left 350ms',
+    zIndex: zIndexes.menu,
+
+    [mediaQueries.mid]: {
+      left: 0,
+      marginLeft: 0,
+      width: menuWidth
+    }
+  },
+  ({ menuOpen }) => ({
+    left: menuOpen ? 0 : `-${menuWidth + spacing.x2}`,
+    right: menuOpen ? 0 : 'auto'
+  })
+);
+
+export const MenuButton = glamorous.button({
+  ...buttonBase,
+  position: 'absolute',
+  left: spacing.x2,
+  top: spacing.x2,
+  zIndex: zIndexes.menuToggle,
+
+  [mediaQueries.mid]: {
+    display: 'none'
+  }
+});
+
+export const MenuItem = glamorous.li({
+  marginBottom: spacing.x2
+});
+
+export const MenuHeading = glamorous.h3({
+  fontSize: '1.4rem',
+  marginBottom: spacing.x1
+});
+
+/**
+ * Filters
+ * ----------------
+ */
+export const FilterWrapper = glamorous.label({
+  display: 'flex',
+  flexWrap: 'wrap'
+});
+
+export const FilterLabel = glamorous.label(
+  {
+    borderRadius,
+    display: 'inline-block',
+    marginBottom: spacing.x1,
+    marginRight: spacing.x1,
+    padding: spacing.x1,
+
+    ':hover': {
+      backgroundColor: colors.grey_darkest,
+      cursor: 'pointer'
+    }
+  },
+  ({ selected }) => ({
+    backgroundColor: selected ? colors.grey_darkest : colors.grey_light
+  })
+);
+
 /**
  * Totals
  * ----------------
@@ -203,25 +254,6 @@ export const TotalsWrapper = glamorous.section({
 export const TotalsText = glamorous.p({
   margin: 0
 });
-
-/**
- * Filters
- * ----------------
- */
-export const FilterLabel = glamorous.label(
-  {
-    display: 'inline-block',
-    marginBottom: spacing.base,
-    padding: spacing.base,
-
-    ':hover': {
-      backgroundColor: colors.grey_darkest
-    }
-  },
-  ({ selected }) => ({
-    backgroundColor: selected ? colors.grey_darkest : colors.grey_light
-  })
-);
 
 /**
  * Coins
@@ -249,9 +281,9 @@ const activeCoin = ({ active, owned }) => ({
 
 export const CoinListItem = glamorous.li(
   {
-    borderRadius: 3,
+    borderRadius,
     flexGrow: 0,
-    marginBottom: spacing.base,
+    marginBottom: spacing.x1,
 
     ':hover': activeCoin({ active: true }),
 
@@ -271,9 +303,9 @@ export const CoinListItem = glamorous.li(
 );
 
 export const TickImage = glamorous.img({
-  left: spacing.base,
+  left: spacing.x1,
   position: 'absolute',
-  top: spacing.base,
+  top: spacing.x1,
   width: 40
 });
 
@@ -286,7 +318,7 @@ export const CoinImg = glamorous.img({
 
 export const CoinLabel = glamorous.label({
   display: 'block',
-  padding: spacing.base,
+  padding: spacing.x1,
   position: 'relative',
 
   ':hover': { cursor: 'pointer' }
