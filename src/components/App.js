@@ -7,9 +7,10 @@ import coinHelper from '../helpers/coinHelper';
 
 import Loading from './Loading';
 import Header from './Header';
+import Details from './Details';
 import Menu from './Menu';
 import CoinList from './CoinList';
-import { MainWrapper } from '../styles';
+import { ContentWrapper } from '../styles';
 import LoadingContext from '../context/loadingContext';
 
 class App extends Component {
@@ -169,20 +170,18 @@ class App extends Component {
           login={this.login}
           logout={this.logout}
           handleMenuToggle={this.handleMenuToggle}
-          coins={coins}
-          denominations={denominations}
-          denomination={denomination}
-          handleDenominationChange={this.handleDenominationChange}
         />
 
-        <MainWrapper menuOpen={menuOpen}>
+        <Details user={user} coins={coins} denomination={denomination} />
+
+        <ContentWrapper menuOpen={menuOpen}>
           {user && (
             <CoinList
               coins={filteredCoins}
               handleOwnedChange={this.handleOwnedChange}
             />
           )}
-        </MainWrapper>
+        </ContentWrapper>
       </LoadingContext.Provider>
     );
   }

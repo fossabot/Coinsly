@@ -61,12 +61,13 @@ export const spacing = {
 
 export const zIndexes = {
   header: 1,
-  menuToggle: 2,
-  menu: 1,
+  totals: 1,
+  menu: 2,
   loading: 99
 };
 
-const headerHeight = 120;
+const headerHeight = 100;
+const totalsHeight = 50;
 const menuWidth = 250;
 
 /**
@@ -87,10 +88,7 @@ export const LogoutButton = glamorous.button({
   display: 'none'
 });
 export const LoginButton = glamorous.button({
-  ...buttonBase,
-  position: 'absolute',
-  right: spacing.x2,
-  top: spacing.x2
+  ...buttonBase
 });
 
 /**
@@ -112,24 +110,15 @@ export const LoadingWrapper = glamorous.p(
 );
 
 /**
- * Layout
- * ----------------
- */
-export const MainWrapper = glamorous.div({
-  marginTop: headerHeight,
-  padding: spacing.x2,
-
-  [mediaQueries.mid]: {
-    marginLeft: menuWidth
-  }
-});
-
-/**
  * Header
  * ----------------
  */
 export const HeaderWrapper = glamorous.header({
+  alignItems: 'center',
   backgroundColor: colors.grey_darkest,
+  display: 'flex',
+  height: headerHeight,
+  justifyContent: 'space-between',
   padding: spacing.x2,
   position: 'fixed',
   textAlign: 'center',
@@ -140,20 +129,17 @@ export const HeaderWrapper = glamorous.header({
 
 export const SiteTitle = glamorous.h1({
   fontSize: '2rem',
-  fontWeight: 'bold'
+  fontWeight: 'bold',
+  margin: `0 ${spacing.x1}`
 });
 
 export const UserWrapper = glamorous.div({
   alignItems: 'center',
-  display: 'flex',
-  right: spacing.x2,
-  position: 'absolute',
-  top: spacing.x2
+  display: 'flex'
 });
 
 export const UserAvatar = glamorous.img({
   borderRadius: '50%',
-  marginLeft: spacing.x2,
   width: 50
 });
 
@@ -171,11 +157,12 @@ export const MenuWrapper = glamorous.ul(
     overflow: 'auto',
     padding: spacing.x2,
     position: 'fixed',
-    top: headerHeight,
-    // transition: 'margin-left 350ms',
+    top: headerHeight + totalsHeight,
+    transition: 'margin-left 350ms',
     zIndex: zIndexes.menu,
 
     [mediaQueries.mid]: {
+      borderRight: `solid 5px ${colors.grey_light}`,
       left: 0,
       marginLeft: 0,
       width: menuWidth
@@ -183,20 +170,16 @@ export const MenuWrapper = glamorous.ul(
   },
   ({ menuOpen }) => ({
     left: menuOpen ? 0 : `-${menuWidth + spacing.x2}`,
-    right: menuOpen ? 0 : 'auto'
+    right: menuOpen ? 0 : 'auto',
+
+    [mediaQueries.mid]: {
+      marginLeft: menuOpen ? 0 : `-${menuWidth}`
+    }
   })
 );
 
 export const MenuButton = glamorous.button({
-  ...buttonBase,
-  position: 'absolute',
-  left: spacing.x2,
-  top: spacing.x2,
-  zIndex: zIndexes.menuToggle,
-
-  [mediaQueries.mid]: {
-    display: 'none'
-  }
+  ...buttonBase
 });
 
 export const MenuItem = glamorous.li({
@@ -239,12 +222,18 @@ export const FilterLabel = glamorous.label(
  * Totals
  * ----------------
  */
-export const TotalsWrapper = glamorous.section({
-  alignItems: 'baseline',
+export const TotalsWrapper = glamorous.div({
+  alignItems: 'center',
+  backgroundColor: colors.grey_light,
   display: 'flex',
   flexDirection: 'column',
+  height: totalsHeight,
   justifyContent: 'space-between',
-  paddingTop: spacing.x2,
+  padding: `0 ${spacing.x2}px`,
+  position: 'fixed',
+  top: headerHeight,
+  width: '100%',
+  zIndex: zIndexes.totals,
 
   [mediaQueries.narrow]: {
     flexDirection: 'row'
@@ -254,6 +243,23 @@ export const TotalsWrapper = glamorous.section({
 export const TotalsText = glamorous.p({
   margin: 0
 });
+
+/**
+ * Layout
+ * ----------------
+ */
+export const ContentWrapper = glamorous.div(
+  {
+    marginTop: headerHeight + totalsHeight,
+    padding: spacing.x2,
+    transition: 'margin-left 350ms'
+  },
+  ({ menuOpen }) => ({
+    [mediaQueries.mid]: {
+      marginLeft: menuOpen ? menuWidth : 0
+    }
+  })
+);
 
 /**
  * Coins
