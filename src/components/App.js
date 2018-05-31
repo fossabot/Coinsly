@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import queryString from 'query-string';
+import queryString from 'qs';
 
 import auth, { login, logout } from '../api/authApi';
 import { getCoins } from '../api/coinApi';
@@ -54,7 +54,7 @@ class App extends Component {
         const {
           denomination = denominations[0],
           filter = filters[0]
-        } = queryString.parse(this.props.location.search);
+        } = queryString.parse(this.props.location.search.slice(1));
 
         this.setState({
           user,
