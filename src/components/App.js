@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import queryString from 'query-string';
 
 import auth, { login, logout } from '../api/authApi';
 import { getCoins } from '../api/coinApi';
@@ -14,23 +16,19 @@ import { ContentWrapper } from '../styles';
 import LoadingContext from '../context/loadingContext';
 
 class App extends Component {
-  constructor() {
-    super();
+  defaultState = {
+    user: null,
+    isLoading: false,
+    menuOpen: false,
+    coins: [],
+    filteredCoins: [],
+    filter: '',
+    filters: [],
+    denominations: [],
+    denomination: ''
+  };
 
-    this.defaultState = {
-      user: null,
-      isLoading: false,
-      menuOpen: false,
-      coins: [],
-      filteredCoins: [],
-      filter: '',
-      filters: [],
-      denominations: [],
-      denomination: ''
-    };
-
-    this.state = this.defaultState;
-  }
+  state = this.defaultState;
 
   setDefaultState = () => {
     this.setState(this.defaultState);
@@ -51,9 +49,12 @@ class App extends Component {
       if (user) {
         const coins = await getCoins(user.uid);
         const denominations = coinHelper.getDenominations(coins);
-        const [denomination] = denominations;
         const filters = ['All', 'Needed', 'Owned'];
-        const [filter] = filters;
+
+        const {
+          denomination = denominations[0],
+          filter = filters[0]
+        } = queryString.parse(this.props.location.search);
 
         this.setState({
           user,
@@ -70,10 +71,10 @@ class App extends Component {
   }
 
   componentDidUpdate() {
-    const { filter, coins, filteredCoins, denomination } = this.state;
+    const { filter, denomination, coins, filteredCoins } = this.state;
     const newFilteredCoins = coinHelper.filterCoins(
-      filter,
       coins,
+      filter,
       denomination
     );
     const filterChanged =
@@ -81,6 +82,8 @@ class App extends Component {
 
     if (filterChanged) {
       this.setState({ filteredCoins: newFilteredCoins });
+      const search = queryString.stringify({ filter, denomination });
+      this.props.history.push({ search });
     }
   }
 
@@ -102,18 +105,19 @@ class App extends Component {
   };
 
   handleMenuToggle = () => {
-    console.log('hi');
-    this.setState(prevState => ({
-      menuOpen: !prevState.menuOpen
+    this.setState(({ menuOpen }) => ({
+      menuOpen: !menuOpen
     }));
   };
 
   handleFilterChange = e => {
-    this.setState({ filter: e.target.value });
+    const filter = e.target.value;
+    this.setState({ filter });
   };
 
   handleDenominationChange = e => {
-    this.setState({ denomination: e.target.value });
+    const denomination = e.target.value;
+    this.setState({ denomination });
   };
 
   handleOwnedChange = async e => {
@@ -187,4 +191,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

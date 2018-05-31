@@ -5,7 +5,7 @@ const filterOwned = coins => coins.filter(coin => coin.ownedId !== undefined);
 const filterByDenomination = (coins, denomination) =>
   coins.filter(coin => coin.denomination === denomination);
 
-const filterCoins = (filter, coins, denomination) => {
+const filterCoins = (coins, filter, denomination) => {
   const byDenomination = filterByDenomination(coins, denomination);
 
   switch (filter) {
