@@ -1,8 +1,11 @@
 import { api } from './firebaseApi';
 import { getOwned } from './ownedApi';
+import { getImage } from './storageApi';
 
-export const addCoin = async coin =>
-  await api.collection('coins').add(coin);
+export const addCoin = async coin => {
+  const imageUrl = await getImage(`${coin.denomination}/${coin.imageUrl}`);
+  await api.collection('coins').add({ ...coin, imageUrl });
+}
 
 export const getCoins = async userId => {
   const coinsRef = await api
