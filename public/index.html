@@ -8,6 +8,18 @@
 	<link rel="manifest" href="%PUBLIC_URL%/manifest.json">
 	<link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
 	<title>Coinsly</title>
+
+	<% if (process.env.NODE_ENV === 'production') { %>
+		<script src=https://cdn.ravenjs.com/3.24.0/raven.min.js crossorigin=anonymous></script>
+		<script>
+			Raven
+				.config('https://dc9a3f42de944df296987f60af5cfea1@sentry.io/1197099', {
+					release: '1-0-0',
+					environment: "%NODE_ENV%",
+				})
+				.install();
+		</script>
+	<% } %>
 </head>
 
 <body>
