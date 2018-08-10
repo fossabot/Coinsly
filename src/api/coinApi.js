@@ -1,8 +1,8 @@
 import { api } from './firebaseApi';
 import { getOwned } from './ownedApi';
 
-export const addCoin = async ({ denomination, name, year, order }) =>
-  await api.collection('coins').add({ denomination, name, year, order });
+export const addCoin = async coin =>
+  await api.collection('coins').add(coin);
 
 export const getCoins = async userId => {
   const coinsRef = await api
@@ -15,14 +15,12 @@ export const getCoins = async userId => {
 
   coinsRef.forEach(coin => {
     const { id } = coin;
-    const { denomination, name, year } = coin.data();
+    const coinData = coin.data();
     const owned = userOwned.find(o => o.coinId === id);
 
     coins.push({
+      ...coinData,
       id,
-      denomination,
-      name,
-      year,
       ...(owned && { ownedId: owned.id }),
       owned: owned !== undefined
     });

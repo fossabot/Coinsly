@@ -19,6 +19,7 @@
     "glamor": "2.20.40",
     "glamorous": "4.13.0",
     "history": "4.7.2",
+    "node-sass": "4.9.2",
     "qs": "6.5.2",
     "react": "16.3.2",
     "react-dom": "16.3.2",
@@ -27,7 +28,7 @@
   "devDependencies": {
     "coveralls": "3.0.0",
     "jest-glamor-react": "4.3.0",
-    "react-scripts": "1.1.4",
+    "react-scripts": "2.0.0-next.3e165448",
     "react-testing-library": "2.2.0"
   },
   "scripts": {
@@ -41,6 +42,18 @@
   "jest": {
     "snapshotSerializers": [
       "jest-glamor-react"
+    ]
+  },
+  "browserslist": {
+    "development": [
+      "last 2 chrome versions",
+      "last 2 firefox versions",
+      "last 2 edge versions"
+    ],
+    "production": [
+      ">0.25%",
+      "not op_mini all",
+      "ie 11"
     ]
   }
 }

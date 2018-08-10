@@ -1,11 +1,11 @@
 import React from 'react';
-import { render, Simulate, flushPromises } from 'react-testing-library';
+import { render } from 'react-testing-library';
 import Coin from '../Coin';
 
 it('coin markup is correct', () => {
   // Arrange
   const coin = { id: 2, name: 'Kew Gardens' };
-  const component = <Coin coin={coin} />;
+  const component = <Coin coin={coin} handleOwnedChange={() => {}} />;
 
   // Act
   const { container } = render(component);
@@ -17,7 +17,7 @@ it('coin markup is correct', () => {
 it('label text content is correct', () => {
   // Arrange
   const coin = { id: 2, name: 'Kew Gardens' };
-  const component = <Coin coin={coin} />;
+  const component = <Coin coin={coin} handleOwnedChange={() => {}} />;
 
   // Act
   const { getByTestId } = render(component);

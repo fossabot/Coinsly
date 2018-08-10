@@ -169,7 +169,7 @@ export const MenuWrapper = glamorous.ul(
     }
   },
   ({ menuOpen }) => ({
-    left: menuOpen ? 0 : `-${menuWidth + spacing.x2}`,
+    left: menuOpen ? 0 : '-9999px',
     right: menuOpen ? 0 : 'auto',
 
     [mediaQueries.mid]: {
@@ -204,6 +204,7 @@ export const FilterLabel = glamorous.label(
   {
     borderRadius,
     display: 'inline-block',
+    flexBasis: '100%',
     marginBottom: spacing.x1,
     marginRight: spacing.x1,
     padding: spacing.x1,
@@ -316,11 +317,16 @@ export const TickImage = glamorous.img({
 });
 
 export const CoinImg = glamorous.img({
+  borderRadius: '50%',
   display: 'block',
   margin: `${spacing.x3}px auto`,
   maxWidth: 150,
   width: '70%'
-});
+},
+  ({ owned }) => ({
+    border: `solid 5px ${owned ? colors.green : colors.grey_light}`,
+  })
+);
 
 export const CoinLabel = glamorous.label({
   display: 'block',
