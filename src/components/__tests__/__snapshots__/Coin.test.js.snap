@@ -67,7 +67,6 @@ exports[`coin markup is correct 1`] = `
     <img
       alt=""
       class="css-4"
-      src="coin.svg"
     />
     <h3
       data-testid="coin-label"
