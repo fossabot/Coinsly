@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 import { TickImage, CoinImg, CoinLabel, CoinListItem } from '../styles';
 import tick from '../assets/tick.svg';
 
-const Coin = ({ coin, handleOwnedChange }) => (
-  <CoinListItem owned={coin.owned}>
+const Coin = ({ coin, show, handleOwnedChange }) => (
+  <CoinListItem owned={coin.owned} show={show}>
     <CoinLabel data-testid="coin-label">
       {coin.owned && <TickImage src={tick} alt="" />}
 
       <CoinImg src={coin.imageUrl} alt="" owned={coin.owned} />
 
-      <h3 data-testid="coin-label">{coin.name}</h3>
+      <h3 data-testid="coin-label">{coin.years[0]}</h3>
 
       <input
         type="checkbox"
@@ -26,6 +26,7 @@ const Coin = ({ coin, handleOwnedChange }) => (
 
 Coin.propTypes = {
   coin: PropTypes.object.isRequired,
+  show: PropTypes.bool,
   handleOwnedChange: PropTypes.func.isRequired
 };
 

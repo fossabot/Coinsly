@@ -1,20 +1,23 @@
-const filterNeeded = coins => coins.filter(coin => coin.ownedId === undefined);
+const isNeeded = coin => coin.ownedId === undefined;
 
-const filterOwned = coins => coins.filter(coin => coin.ownedId !== undefined);
+const isOwned = coin => coin.ownedId !== undefined;
+
+const isDenomination = (coin, denomination) => coin.denomination === denomination;
 
 const filterByDenomination = (coins, denomination) =>
-  coins.filter(coin => coin.denomination === denomination);
+  coins.filter(coin => isDenomination(coin, denomination));
 
-const filterCoins = (coins, filter, denomination) => {
-  const byDenomination = filterByDenomination(coins, denomination);
+const showCoin = (coin, filter, denomination) => {
+  const isDenom = isDenomination(coin, denomination);
+  if (!isDenom) return false;
 
   switch (filter) {
     case 'Needed':
-      return filterNeeded(byDenomination);
+      return isNeeded(coin);
     case 'Owned':
-      return filterOwned(byDenomination);
+      return isOwned(coin);
     default:
-      return byDenomination;
+      return true;
   }
 };
 
@@ -59,8 +62,8 @@ const getDenominations = coins => [
 ];
 
 export default {
-  filterCoins,
   filterByDenomination,
+  showCoin,
   addOwnedId,
   removeOwnedId,
   getDenominations

@@ -21,7 +21,6 @@ class App extends Component {
     isLoading: false,
     menuOpen: false,
     coins: [],
-    filteredCoins: [],
     filter: '',
     filters: [],
     denominations: [],
@@ -42,7 +41,7 @@ class App extends Component {
     this.setState({ isLoading: false });
   };
 
-  async componentDidMount() {
+  async componentDidMount () {
     auth.onAuthStateChanged(async user => {
       this.showLoader();
 
@@ -70,23 +69,6 @@ class App extends Component {
     });
   }
 
-  componentDidUpdate() {
-    const { filter, denomination, coins, filteredCoins } = this.state;
-    const newFilteredCoins = coinHelper.filterCoins(
-      coins,
-      filter,
-      denomination
-    );
-    const filterChanged =
-      JSON.stringify(newFilteredCoins) !== JSON.stringify(filteredCoins);
-
-    if (filterChanged) {
-      this.setState({ filteredCoins: newFilteredCoins });
-      const search = queryString.stringify({ filter, denomination });
-      this.props.history.push({ search });
-    }
-  }
-
   login = async () => {
     this.showLoader();
     const user = await login();
@@ -110,14 +92,20 @@ class App extends Component {
     }));
   };
 
+  updateUrl = () => {
+    const { filter, denomination } = this.state;
+    const search = queryString.stringify({ filter, denomination });
+    this.props.history.push({ search });
+  }
+
   handleFilterChange = e => {
     const filter = e.target.value;
-    this.setState({ filter });
+    this.setState({ filter }, () => this.updateUrl());
   };
 
   handleDenominationChange = e => {
     const denomination = e.target.value;
-    this.setState({ denomination });
+    this.setState({ denomination }, () => this.updateUrl());
   };
 
   handleOwnedChange = async e => {
@@ -138,13 +126,12 @@ class App extends Component {
     this.hideLoader();
   };
 
-  render() {
+  render () {
     const {
       user,
       isLoading,
       menuOpen,
       coins,
-      filteredCoins,
       filters,
       filter,
       denominations,
@@ -181,7 +168,9 @@ class App extends Component {
         <ContentWrapper menuOpen={menuOpen}>
           {user && (
             <CoinList
-              coins={filteredCoins}
+              coins={coins}
+              denomination={denomination}
+              filter={filter}
               handleOwnedChange={this.handleOwnedChange}
             />
           )}

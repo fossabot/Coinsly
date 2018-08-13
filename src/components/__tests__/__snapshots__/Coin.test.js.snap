@@ -6,6 +6,7 @@ exports[`coin markup is correct 1`] = `
   border-radius: 3px;
   flex-grow: 0;
   margin-bottom: 10px;
+  display: none;
   color: #b8bebb;
   background-color: #454949;
   border: solid 5px #555858;

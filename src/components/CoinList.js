@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Fieldset } from 'glamorous';
 
+import coinHelper from '../helpers/coinHelper';
 import { CoinListWrapper } from '../styles';
 import LoadingContext from '../context/loadingContext';
 
 import Coin from './Coin';
 
-const CoinList = ({ coins, handleOwnedChange }) =>
+const CoinList = ({ coins, denomination, filter, handleOwnedChange }) =>
   coins.length > 0 ? (
     <LoadingContext.Consumer>
       {isLoading => (
@@ -17,6 +18,7 @@ const CoinList = ({ coins, handleOwnedChange }) =>
               <Coin
                 key={coin.id}
                 coin={coin}
+                show={coinHelper.showCoin(coin, filter, denomination)}
                 handleOwnedChange={handleOwnedChange}
               />
             ))}
@@ -30,6 +32,8 @@ const CoinList = ({ coins, handleOwnedChange }) =>
 
 CoinList.propTypes = {
   coins: PropTypes.array,
+  denomination: PropTypes.string,
+  filter: PropTypes.string,
   handleOwnedChange: PropTypes.func.isRequired
 };
 
