@@ -268,43 +268,39 @@ export const ContentWrapper = glamorous.div(
  */
 export const CoinListWrapper = glamorous.ul({
   display: 'flex',
-  flexDirection: 'column',
+  flexWrap: 'wrap',
   justifyContent: 'space-between',
   listStyleType: 'none',
   margin: 0,
-  padding: 0,
-
-  [mediaQueries.mid]: {
-    flexDirection: 'row',
-    flexWrap: 'wrap'
-  }
+  padding: 0
 });
 
 const activeCoin = ({ active, owned }) => ({
   color: active ? colors.white : colors.grey_lightest,
   backgroundColor: active ? colors.grey_light : colors.grey,
-  border: `solid 5px ${owned ? colors.green : colors.grey_light}`
+  border: `solid 3px ${owned ? colors.green : colors.grey_light}`
 });
 
 export const CoinListItem = glamorous.li(
   {
     borderRadius,
     flexGrow: 0,
-    marginBottom: spacing.x1,
+    flexBasis: '30%',
+    marginBottom: spacing.x2,
 
     ':hover': activeCoin({ active: true }),
 
     [mediaQueries.mid]: {
-      flexBasis: '30%'
+      flexBasis: '15%'
     },
 
     [mediaQueries.wide]: {
-      flexBasis: '19%'
+      flexBasis: '15%'
     }
   },
-  ({ owned }) => ({
+  ({ owned, show }) => ({
+    display: show ? 'block' : 'none',
     ...activeCoin({ owned }),
-
     ':hover': activeCoin({ owned, active: true })
   })
 );
@@ -313,18 +309,27 @@ export const TickImage = glamorous.img({
   left: spacing.x1,
   position: 'absolute',
   top: spacing.x1,
-  width: 40
+  width: 20,
+
+  [mediaQueries.mid]: {
+    width: 40
+  }
 });
 
 export const CoinImg = glamorous.img({
   borderRadius: '50%',
   display: 'block',
-  margin: `${spacing.x3}px auto`,
+  margin: `${spacing.x1}px auto`,
   maxWidth: 150,
-  width: '70%'
+  width: '70%',
+
+  [mediaQueries.mid]: {
+    marginBottom: spacing.x3,
+    marginTop: spacing.x3
+  }
 },
   ({ owned }) => ({
-    border: `solid 5px ${owned ? colors.green : colors.grey_light}`,
+    border: `solid 3px ${owned ? colors.green : colors.grey_light}`,
   })
 );
 
