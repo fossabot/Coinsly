@@ -298,8 +298,7 @@ export const CoinListItem = glamorous.li(
       flexBasis: '15%'
     }
   },
-  ({ owned, show }) => ({
-    display: show ? 'block' : 'none',
+  ({ owned }) => ({
     ...activeCoin({ owned }),
     ':hover': activeCoin({ owned, active: true })
   })

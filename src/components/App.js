@@ -30,19 +30,7 @@ class App extends Component {
 
   state = this.defaultState;
 
-  setDefaultState = () => {
-    this.setState(this.defaultState);
-  };
-
-  showLoader = () => {
-    this.setState({ isLoading: true });
-  };
-
-  hideLoader = () => {
-    this.setState({ isLoading: false });
-  };
-
-  async componentDidMount() {
+  async componentDidMount () {
     auth.onAuthStateChanged(async user => {
       this.showLoader();
 
@@ -70,21 +58,36 @@ class App extends Component {
     });
   }
 
-  componentDidUpdate() {
-    const { filter, denomination, coins, filteredCoins } = this.state;
-    const newFilteredCoins = coinHelper.filterCoins(
-      coins,
-      filter,
-      denomination
-    );
-    const filterChanged =
-      JSON.stringify(newFilteredCoins) !== JSON.stringify(filteredCoins);
+  componentDidUpdate (prevProps, prevState) {
+    const { filter, denomination, coins } = this.state;
+    const filtersChanged = prevState.filter !== filter
+      || prevState.denomination !== denomination;
 
-    if (filterChanged) {
-      this.setState({ filteredCoins: newFilteredCoins });
-      const search = queryString.stringify({ filter, denomination });
-      this.props.history.push({ search });
+    if (filtersChanged) {
+      const filteredCoins = coinHelper.filterCoins(coins, filter, denomination);
+
+      this.setState(
+        { filteredCoins },
+        () => this.updateUrl());
     }
+  }
+
+  setDefaultState = () => {
+    this.setState(this.defaultState);
+  };
+
+  showLoader = () => {
+    this.setState({ isLoading: true });
+  };
+
+  hideLoader = () => {
+    this.setState({ isLoading: false });
+  };
+
+  updateUrl = () => {
+    const { filter, denomination } = this.state;
+    const search = queryString.stringify({ filter, denomination });
+    this.props.history.push({ search });
   }
 
   login = async () => {
@@ -138,7 +141,7 @@ class App extends Component {
     this.hideLoader();
   };
 
-  render() {
+  render () {
     const {
       user,
       isLoading,
