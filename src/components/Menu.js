@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 
 import Filters from './Filters';
 import Denominations from './Denominations';
-
-import { MenuWrapper, MenuItem, MenuHeading } from '../styles';
+import menuStyles from '../styles/Menu.module.scss';
 
 const Menu = ({
   menuOpen,
-  user,
   filters,
   filter,
   handleFilterChange,
@@ -16,32 +14,31 @@ const Menu = ({
   denomination,
   handleDenominationChange
 }) => (
-  <MenuWrapper menuOpen={menuOpen}>
-    <MenuItem>
-      <MenuHeading>Filters</MenuHeading>
+  <ul className={`${menuStyles.menu} ${menuOpen ? menuStyles.menu__open : ''}`}>
+    <li className={menuStyles.menu_item}>
+      <h3 className={menuStyles.menu_heading}>Filters</h3>
 
       <Filters
         filters={filters}
         filter={filter}
         handleChange={handleFilterChange}
       />
-    </MenuItem>
+    </li>
 
-    <MenuItem>
-      <MenuHeading>Coin Type</MenuHeading>
+    <li className={menuStyles.menu_item}>
+      <h3 className={menuStyles.menu_heading}>Coin Type</h3>
 
       <Denominations
         denominations={denominations}
         denomination={denomination}
         handleChange={handleDenominationChange}
       />
-    </MenuItem>
-  </MenuWrapper>
+    </li>
+  </ul>
 );
 
 Menu.propTypes = {
   menuOpen: PropTypes.bool.isRequired,
-  user: PropTypes.object,
   filters: PropTypes.array.isRequired,
   filter: PropTypes.string.isRequired,
   handleFilterChange: PropTypes.func.isRequired,

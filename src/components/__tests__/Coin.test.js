@@ -16,12 +16,12 @@ it('coin markup is correct', () => {
 
 it('label text content is correct', () => {
   // Arrange
-  const coin = { id: 2, name: 'Kew Gardens' };
+  const coin = { id: 2 };
   const component = <Coin coin={coin} handleOwnedChange={() => {}} />;
 
   // Act
   const { getByTestId } = render(component);
 
   // Assert
-  expect(getByTestId('coin-label').textContent).toBe('Kew Gardens');
+  expect(getByTestId('coin-label').textContent).toBe('');
 });

@@ -1,18 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Fieldset } from 'glamorous';
 
-import { CoinListWrapper } from '../styles';
+import styles from '../styles/CoinList.module.scss';
 import LoadingContext from '../context/loadingContext';
-
 import Coin from './Coin';
 
 const CoinList = ({ coins, handleOwnedChange }) =>
   coins.length > 0 ? (
     <LoadingContext.Consumer>
       {isLoading => (
-        <Fieldset border="none" padding={0} disabled={isLoading}>
-          <CoinListWrapper>
+        <fieldset className={styles.coinsListWrapper} disabled={isLoading}>
+          <ul className={styles.coinList}>
             {coins.map(coin => (
               <Coin
                 key={coin.id}
@@ -20,8 +18,8 @@ const CoinList = ({ coins, handleOwnedChange }) =>
                 handleOwnedChange={handleOwnedChange}
               />
             ))}
-          </CoinListWrapper>
-        </Fieldset>
+          </ul>
+        </fieldset>
       )}
     </LoadingContext.Consumer>
   ) : (

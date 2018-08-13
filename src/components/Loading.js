@@ -1,13 +1,12 @@
 import React from 'react';
 
-import { LoadingWrapper } from '../styles';
 import LoadingContext from '../context/loadingContext';
+import loadingSvg from '../assets/loading.svg';
+import { loading } from '../styles/Loading.module.scss';
 
 const Loading = () => (
   <LoadingContext.Consumer>
-    {isLoading => (
-      <LoadingWrapper isLoading={isLoading}>Loading...</LoadingWrapper>
-    )}
+    {isLoading => isLoading && <img src={loadingSvg} className={loading} alt="Loading..." />}
   </LoadingContext.Consumer>
 );
 

@@ -1,42 +1,34 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-
-import {
-  HeaderWrapper,
-  SiteTitle,
-  UserWrapper,
-  UserAvatar,
-  MenuButton,
-  LoginButton,
-  LogoutButton
-} from '../styles';
+import headerStyles from '../styles/Header.module.scss';
+import buttonStyles from '../styles/buttons.module.scss';
 
 const Header = ({ title, user, login, logout, handleMenuToggle }) => (
-  <HeaderWrapper>
+  <header className={headerStyles.header}>
     {user ? (
-      <MenuButton type="button" onClick={handleMenuToggle}>
+      <button className={buttonStyles.button} type="button" onClick={handleMenuToggle}>
         Menu
-      </MenuButton>
+      </button>
     ) : (
-      <LoginButton type="submit" onClick={login}>
+      <button className={buttonStyles.button} type="submit" onClick={login}>
         Log In
-      </LoginButton>
+      </button>
     )}
 
-    <SiteTitle>{title}</SiteTitle>
+    <h1 className={headerStyles.siteTitle}>{title}</h1>
 
-    <UserWrapper>
+    <div className={headerStyles.userWrapper}>
       {user && (
         <Fragment>
-          <LogoutButton type="submit" onClick={logout}>
+          <button className={buttonStyles.button} type="submit" onClick={logout}>
             Log out
-          </LogoutButton>
+          </button>
 
-          <UserAvatar src={user.photoURL} alt={user.email} />
+          <img className={headerStyles.userAvatar} src={user.photoURL} alt={user.email} />
         </Fragment>
       )}
-    </UserWrapper>
-  </HeaderWrapper>
+    </div>
+  </header>
 );
 
 Header.propTypes = {

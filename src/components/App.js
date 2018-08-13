@@ -12,18 +12,19 @@ import Header from './Header';
 import Details from './Details';
 import Menu from './Menu';
 import CoinList from './CoinList';
-import { ContentWrapper } from '../styles';
+import '../styles/global.scss';
+import styles from '../styles/App.module.scss';
 import LoadingContext from '../context/loadingContext';
 
 class App extends Component {
   defaultState = {
     user: null,
-    isLoading: false,
+    isLoading: true,
     menuOpen: false,
     coins: [],
     filteredCoins: [],
     filter: '',
-    filters: [],
+    filters: ['All', 'Needed', 'Owned'],
     denominations: [],
     denomination: ''
   };
@@ -37,7 +38,7 @@ class App extends Component {
       if (user) {
         const coins = await getCoins(user.uid);
         const denominations = coinHelper.getDenominations(coins);
-        const filters = ['All', 'Needed', 'Owned'];
+        const { filters } = this.state;
 
         const {
           denomination = denominations[0],
@@ -58,23 +59,22 @@ class App extends Component {
     });
   }
 
-  componentDidUpdate (prevProps, prevState) {
-    const { filter, denomination, coins } = this.state;
-    const filtersChanged = prevState.filter !== filter
-      || prevState.denomination !== denomination;
+  componentDidUpdate () {
+    const { filter, denomination, coins, filteredCoins } = this.state;
+    const newFilteredCoins = coinHelper.filterCoins(
+      coins,
+      filter,
+      denomination
+    );
+    const filterChanged =
+      JSON.stringify(newFilteredCoins) !== JSON.stringify(filteredCoins);
 
-    if (filtersChanged) {
-      const filteredCoins = coinHelper.filterCoins(coins, filter, denomination);
-
+    if (filterChanged) {
       this.setState(
-        { filteredCoins },
+        { filteredCoins: newFilteredCoins },
         () => this.updateUrl());
     }
   }
-
-  setDefaultState = () => {
-    this.setState(this.defaultState);
-  };
 
   showLoader = () => {
     this.setState({ isLoading: true });
@@ -104,7 +104,7 @@ class App extends Component {
   logout = async () => {
     this.showLoader();
     await logout();
-    this.setDefaultState();
+    this.setState(this.defaultState);
   };
 
   handleMenuToggle = () => {
@@ -161,7 +161,6 @@ class App extends Component {
         {user && (
           <Menu
             menuOpen={menuOpen}
-            user={user}
             filters={filters}
             filter={filter}
             handleFilterChange={this.handleFilterChange}
@@ -181,14 +180,14 @@ class App extends Component {
 
         <Details user={user} coins={coins} denomination={denomination} />
 
-        <ContentWrapper menuOpen={menuOpen}>
+        <div className={`${styles.contentWrapper} ${menuOpen ? styles.contentWrapper__spacingLeft : ''}`}>
           {user && (
             <CoinList
               coins={filteredCoins}
               handleOwnedChange={this.handleOwnedChange}
             />
           )}
-        </ContentWrapper>
+        </div>
       </LoadingContext.Provider>
     );
   }

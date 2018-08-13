@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { FilterWrapper, FilterLabel } from '../styles';
+import filterStyles from '../styles/Filters.module.scss';
 
 const Denominations = ({ denominations, denomination, handleChange }) => (
-  <FilterWrapper>
+  <div className={filterStyles.filter}>
     {denominations.map(name => (
-      <FilterLabel key={name} selected={denomination === name}>
+      <label
+        key={name}
+        className={`${filterStyles.label} ${denomination === name ? filterStyles.label__selected : ''}`}>
         {name}
 
         <input
@@ -17,9 +19,9 @@ const Denominations = ({ denominations, denomination, handleChange }) => (
           onChange={handleChange}
           style={{ display: 'none' }}
         />
-      </FilterLabel>
+      </label>
     ))}
-  </FilterWrapper>
+  </div>
 );
 
 Denominations.propTypes = {

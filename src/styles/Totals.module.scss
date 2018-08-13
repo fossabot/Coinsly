@@ -1,0 +1,32 @@
+/**
+ * Totals
+ * ----------------
+ */
+
+@value narrowBp from "./_mediaQueries.scss";
+@value grey_light from "./_colors.scss";
+@value headerHeight from "./Header.module.scss";
+
+@value totalsHeight 50px;
+
+.totals {
+  align-items: center;
+  background-color: grey_light;
+  display: flex;
+  flex-direction: column;
+  height: totalsHeight;
+  justify-content: space-between;
+  padding: 0 20px;
+  position: fixed;
+  top: headerHeight;
+  width: 100%;
+  z-index: 1;
+
+  @media narrowBp {
+    flex-direction: row;
+  }
+}
+
+.text {
+  margin: 0
+}

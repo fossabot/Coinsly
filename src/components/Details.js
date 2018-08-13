@@ -2,29 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import coinHelper from '../helpers/coinHelper';
-
 import Totals from './Totals';
-import { TotalsWrapper, TotalsText } from '../styles';
+import styles from '../styles/Totals.module.scss';
 
 const Details = ({ user, coins, denomination }) =>
   user && (
-    <TotalsWrapper>
+    <div className={styles.totals}>
       <Totals coins={coins}>
         {({ total, owned, percentage }) => (
-          <TotalsText>
+          <p className={styles.text}>
             <strong>Total coins</strong>: {owned} of {total} ({percentage}%)
-          </TotalsText>
+          </p>
         )}
       </Totals>
 
       <Totals coins={coinHelper.filterByDenomination(coins, denomination)}>
         {({ total, owned, percentage }) => (
-          <TotalsText>
+          <p className={styles.text}>
             <strong>{denomination}</strong>: {owned} of {total} ({percentage}%)
-          </TotalsText>
+          </p>
         )}
       </Totals>
-    </TotalsWrapper>
+    </div>
   );
 
 Details.propTypes = {

@@ -1,27 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { TickImage, CoinImg, CoinLabel, CoinListItem } from '../styles';
+import styles from '../styles/Coin.module.scss';
 import tick from '../assets/tick.svg';
 
 const Coin = ({ coin, handleOwnedChange }) => (
-  <CoinListItem owned={coin.owned}>
-    <CoinLabel data-testid="coin-label">
-      {coin.owned && <TickImage src={tick} alt="" />}
+  <li className={`${styles.coin} ${coin.owned ? styles.coin__owned : ''}`}>
+    <label className={styles.label} data-testid="coin-label">
+      {coin.owned && <img className={styles.tick} src={tick} alt="" />}
 
-      <CoinImg src={coin.imageUrl} alt="" owned={coin.owned} />
-
-      <h3 data-testid="coin-label">{coin.name}</h3>
+      <img className={styles.image} src={coin.imageUrl} alt="" />
 
       <input
+        className={styles.input}
         type="checkbox"
         checked={coin.owned}
         onChange={handleOwnedChange}
         value={coin.id}
-        style={{ display: 'none' }}
       />
-    </CoinLabel>
-  </CoinListItem>
+    </label>
+  </li>
 );
 
 Coin.propTypes = {

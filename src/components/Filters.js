@@ -1,25 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { FilterWrapper, FilterLabel } from '../styles';
+import filterStyles from '../styles/Filters.module.scss';
 
 const Filters = ({ filters, filter, handleChange }) => (
-  <FilterWrapper>
-    {filters.map(filterName => (
-      <FilterLabel key={filterName} selected={filter === filterName}>
-        {filterName}
+  <div className={filterStyles.filter}>
+    {filters.map(name => (
+      <label
+        key={name}
+        className={`${filterStyles.label} ${filter === name ? filterStyles.label__selected : ''}`}>
+        {name}
 
         <input
           type="radio"
           name="filter"
-          value={filterName}
-          checked={filter === filterName}
+          value={name}
+          checked={filter === name}
           onChange={handleChange}
           style={{ display: 'none' }}
         />
-      </FilterLabel>
+      </label>
     ))}
-  </FilterWrapper>
+  </div>
 );
 
 Filters.propTypes = {

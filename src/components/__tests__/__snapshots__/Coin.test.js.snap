@@ -1,80 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`coin markup is correct 1`] = `
-.css-0,
-[data-css-0] {
-  border-radius: 3px;
-  flex-grow: 0;
-  margin-bottom: 10px;
-  color: #b8bebb;
-  background-color: #454949;
-  border: solid 5px #555858;
-  -webkit-flex-grow: 0;
-}
-
-.css-0:hover,
-[data-css-0]:hover {
-  color: #fff;
-  background-color: #555858;
-  border: solid 5px #555858;
-}
-
-.css-2,
-[data-css-2] {
-  display: block;
-  padding: 10px;
-  position: relative;
-}
-
-.css-2:hover,
-[data-css-2]:hover {
-  cursor: pointer;
-}
-
-.css-4,
-[data-css-4] {
-  border-radius: 50%;
-  display: block;
-  margin: 30px auto;
-  max-width: 150px;
-  width: 70%;
-  border: solid 5px #555858;
-}
-
-@media only screen and (min-width: 700px) {
-  .css-0,
-  [data-css-0] {
-    flex-basis: 30%;
-    -webkit-flex-basis: 30%;
-  }
-}
-
-@media only screen and (min-width: 1000px) {
-  .css-0,
-  [data-css-0] {
-    flex-basis: 19%;
-    -webkit-flex-basis: 19%;
-  }
-}
-
 <li
-  class="css-0"
+  class="coin "
 >
   <label
-    class="css-2"
+    class="label"
     data-testid="coin-label"
   >
     <img
       alt=""
-      class="css-4"
+      class="image"
     />
-    <h3
-      data-testid="coin-label"
-    >
-      Kew Gardens
-    </h3>
     <input
-      style="display: none;"
+      class="input"
       type="checkbox"
       value="2"
     />

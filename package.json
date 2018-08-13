@@ -16,8 +16,6 @@
   },
   "dependencies": {
     "firebase": "5.3.1",
-    "glamor": "2.20.40",
-    "glamorous": "4.13.1",
     "history": "4.7.2",
     "node-sass": "4.9.3",
     "qs": "6.5.2",
@@ -27,7 +25,6 @@
   },
   "devDependencies": {
     "coveralls": "3.0.2",
-    "jest-glamor-react": "4.3.1",
     "react-scripts": "2.0.0-next.3e165448",
     "react-testing-library": "5.0.0"
   },
@@ -38,11 +35,6 @@
     "test:coverage": "yarn test --coverage",
     "test:coveralls": "cat coverage/lcov.info | coveralls",
     "eject": "react-scripts eject"
-  },
-  "jest": {
-    "snapshotSerializers": [
-      "jest-glamor-react"
-    ]
   },
   "browserslist": {
     "development": [
