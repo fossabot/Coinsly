@@ -1,3 +1,4 @@
+/* global Raven */
 import React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -6,12 +7,14 @@ import setupLogRocketReact from 'logrocket-react';
 
 import App from './components/App';
 
-LogRocket.init('u8t5r0/coinsly');
-setupLogRocketReact(LogRocket);
-Raven.setDataCallback(data => {
-  data.extra.sessionURL = LogRocket.sessionURL;
-  return data;
-});
+if (process.env.NODE_ENV === 'production') {
+  LogRocket.init('u8t5r0/coinsly');
+  setupLogRocketReact(LogRocket);
+  Raven.setDataCallback(data => {
+    data.extra.sessionURL = LogRocket.sessionURL;
+    return data;
+  });
+}
 
 render(
   <Router>
