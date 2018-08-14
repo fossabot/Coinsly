@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Filters from './Filters';
 import Denominations from './Denominations';
-import menuStyles from '../styles/Menu.module.scss';
+import styles from '../styles/Menu.module.scss';
 
 const Menu = ({
   menuOpen,
@@ -14,9 +14,9 @@ const Menu = ({
   denomination,
   handleDenominationChange
 }) => (
-  <ul className={`${menuStyles.menu} ${menuOpen ? menuStyles.menu__open : ''}`}>
-    <li className={menuStyles.menu_item}>
-      <h3 className={menuStyles.menu_heading}>Filters</h3>
+  <ul className={`${styles.menu} ${menuOpen ? styles.menu__open : ''}`}>
+    <li className={styles.menu_item}>
+      <h3 className={styles.menu_heading}>Filters</h3>
 
       <Filters
         filters={filters}
@@ -25,8 +25,8 @@ const Menu = ({
       />
     </li>
 
-    <li className={menuStyles.menu_item}>
-      <h3 className={menuStyles.menu_heading}>Coin Type</h3>
+    <li className={styles.menu_item}>
+      <h3 className={styles.menu_heading}>Coin Type</h3>
 
       <Denominations
         denominations={denominations}
