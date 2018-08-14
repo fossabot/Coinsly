@@ -6041,6 +6041,13 @@ loglevelnext@^1.0.1:
     es6-symbol "^3.1.1"
     object.assign "^4.1.0"
 
+logrocket-react@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/logrocket-react/-/logrocket-react-2.0.0.tgz#efbbf764b7630be44015a73b27ec3a714c51b5af"
+  dependencies:
+    react "16.4.1"
+    react-dom "16.4.1"
+
 logrocket@0.6.16:
   version "0.6.16"
   resolved "https://registry.yarnpkg.com/logrocket/-/logrocket-0.6.16.tgz#09ac05426b096016e19395a0c0b0acf97a647418"
@@ -7627,6 +7634,15 @@ react-dev-utils@6.0.0-next.3e165448:
     strip-ansi "4.0.0"
     text-table "0.2.0"
 
+react-dom@16.4.1:
+  version "16.4.1"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.4.1.tgz#7f8b0223b3a5fbe205116c56deb85de32685dad6"
+  dependencies:
+    fbjs "^0.8.16"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.0"
+
 react-dom@16.4.2:
   version "16.4.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.4.2.tgz#4afed569689f2c561d2b8da0b819669c38a0bda4"
@@ -7726,6 +7742,15 @@ react-testing-library@5.0.0:
   dependencies:
     dom-testing-library "^3.1.0"
     wait-for-expect "^1.0.0"
+
+react@16.4.1:
+  version "16.4.1"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.4.1.tgz#de51ba5764b5dbcd1f9079037b862bd26b82fe32"
+  dependencies:
+    fbjs "^0.8.16"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.0"
 
 react@16.4.2:
   version "16.4.2"
