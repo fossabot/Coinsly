@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import queryString from 'qs';
+import LogRocket from 'logrocket';
 
 import auth, { login, logout } from '../api/authApi';
 import { getCoins } from '../api/coinApi';
@@ -53,6 +54,13 @@ class App extends Component {
           denominations,
           denomination
         });
+
+        if (process.env.NODE_ENV === 'production') {
+          LogRocket.identify(user.uid, {
+            name: user.displayName,
+            email: user.email
+          });
+        }
       }
 
       this.hideLoader();
