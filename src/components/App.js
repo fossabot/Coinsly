@@ -11,7 +11,7 @@ import coinHelper from '../helpers/coinHelper';
 import LoadingContainer from '../containers/LoadingContainer';
 import Header from './Header';
 import Details from './Details';
-import Menu from './Menu';
+import MenuContainer from '../containers/MenuContainer';
 import CoinListContainer from '../containers/CoinListContainer';
 import '../styles/global.scss';
 import styles from '../styles/App.module.scss';
@@ -21,17 +21,13 @@ class App extends Component {
     user: null,
     menuOpen: false,
     coins: [],
-    filteredCoins: [],
-    filter: '',
-    filters: ['All', 'Needed', 'Owned'],
-    denominations: [],
-    denomination: ''
+    filteredCoins: []
   };
 
   state = this.defaultState;
 
   async componentDidMount() {
-    const { showLoader, hideLoader } = this.props;
+    const { showLoader, hideLoader, statuses, updateAllFilters } = this.props;
 
     auth.onAuthStateChanged(async user => {
       showLoader();
@@ -39,20 +35,17 @@ class App extends Component {
       if (user) {
         const coins = await getCoins(user.uid);
         const denominations = coinHelper.getDenominations(coins);
-        const { filters } = this.state;
 
         const {
           denomination = denominations[0],
-          filter = filters[0]
+          status = statuses[0]
         } = queryString.parse(this.props.location.search.slice(1));
+
+        updateAllFilters({ status, denomination, denominations });
 
         this.setState({
           user,
-          coins,
-          filters,
-          filter,
-          denominations,
-          denomination
+          coins
         });
 
         if (process.env.NODE_ENV === 'production') {
@@ -68,10 +61,11 @@ class App extends Component {
   }
 
   componentDidUpdate() {
-    const { filter, denomination, coins, filteredCoins } = this.state;
+    const { coins, filteredCoins } = this.state;
+    const { status, denomination } = this.props;
     const newFilteredCoins = coinHelper.filterCoins(
       coins,
-      filter,
+      status,
       denomination
     );
     const filterChanged =
@@ -85,8 +79,8 @@ class App extends Component {
   }
 
   updateUrl = () => {
-    const { filter, denomination } = this.state;
-    const search = queryString.stringify({ filter, denomination });
+    const { status, denomination } = this.props;
+    const search = queryString.stringify({ status, denomination });
     this.props.history.push({ search });
   };
 
@@ -113,16 +107,6 @@ class App extends Component {
     }));
   };
 
-  handleFilterChange = e => {
-    const filter = e.target.value;
-    this.setState({ filter });
-  };
-
-  handleDenominationChange = e => {
-    const denomination = e.target.value;
-    this.setState({ denomination });
-  };
-
   handleOwnedChange = async e => {
     this.props.showLoader();
     const { checked, value: coinId } = e.target;
@@ -146,11 +130,7 @@ class App extends Component {
       user,
       menuOpen,
       coins,
-      filteredCoins,
-      filters,
-      filter,
-      denominations,
-      denomination
+      filteredCoins
     } = this.state;
 
     return (
@@ -158,14 +138,8 @@ class App extends Component {
         <LoadingContainer />
 
         {user && (
-          <Menu
+          <MenuContainer
             menuOpen={menuOpen}
-            filters={filters}
-            filter={filter}
-            handleFilterChange={this.handleFilterChange}
-            denominations={denominations}
-            denomination={denomination}
-            handleDenominationChange={this.handleDenominationChange}
           />
         )}
 
@@ -177,7 +151,7 @@ class App extends Component {
           handleMenuToggle={this.handleMenuToggle}
         />
 
-        <Details user={user} coins={coins} denomination={denomination} />
+        <Details user={user} coins={coins} />
 
         <div
           className={`${styles.contentWrapper} ${

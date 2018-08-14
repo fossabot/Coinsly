@@ -1,14 +1,19 @@
 import { connect } from 'react-redux';
 import App from '../components/App';
-import { isLoading } from '../state/actions';
+import { isLoading, setAllFilters } from '../state/actions';
 
-const mapStateToProps = ({ loading }) => ({
-  loading
+const mapStateToProps = ({ loading, filters }) => ({
+  loading,
+  statuses: filters.statuses,
+  status: filters.status,
+  denominations: filters.denominations,
+  denomination: filters.denomination
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   showLoader: () => dispatch(isLoading(true)),
-  hideLoader: () => dispatch(isLoading(false))
+  hideLoader: () => dispatch(isLoading(false)),
+  updateAllFilters: filters => dispatch(setAllFilters(filters))
 });
 
 export default connect(
