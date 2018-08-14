@@ -11,7 +11,8 @@ const Details = ({ user, coins, denomination }) =>
       <Totals coins={coins}>
         {({ total, owned, percentage }) => (
           <p className={styles.text}>
-            <strong>Total coins</strong>: {owned} of {total} ({percentage}%)
+            <strong>Total coins</strong>: {owned} of {total} ({percentage}
+            %)
           </p>
         )}
       </Totals>
@@ -19,7 +20,8 @@ const Details = ({ user, coins, denomination }) =>
       <Totals coins={coinHelper.filterByDenomination(coins, denomination)}>
         {({ total, owned, percentage }) => (
           <p className={styles.text}>
-            <strong>{denomination}</strong>: {owned} of {total} ({percentage}%)
+            <strong>{denomination}</strong>: {owned} of {total} ({percentage}
+            %)
           </p>
         )}
       </Totals>

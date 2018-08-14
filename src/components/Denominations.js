@@ -1,14 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import filterStyles from '../styles/Filters.module.scss';
+import styles from '../styles/Filters.module.scss';
 
 const Denominations = ({ denominations, denomination, handleChange }) => (
-  <div className={filterStyles.filter}>
+  <div className={styles.filter}>
     {denominations.map(name => (
       <label
         key={name}
-        className={`${filterStyles.label} ${denomination === name ? filterStyles.label__selected : ''}`}>
+        className={`${styles.label} ${
+          denomination === name ? styles.label__selected : ''
+        }`}
+      >
         {name}
 
         <input

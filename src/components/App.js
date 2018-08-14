@@ -31,7 +31,7 @@ class App extends Component {
 
   state = this.defaultState;
 
-  async componentDidMount () {
+  async componentDidMount() {
     auth.onAuthStateChanged(async user => {
       this.showLoader();
 
@@ -59,7 +59,7 @@ class App extends Component {
     });
   }
 
-  componentDidUpdate () {
+  componentDidUpdate() {
     const { filter, denomination, coins, filteredCoins } = this.state;
     const newFilteredCoins = coinHelper.filterCoins(
       coins,
@@ -70,9 +70,9 @@ class App extends Component {
       JSON.stringify(newFilteredCoins) !== JSON.stringify(filteredCoins);
 
     if (filterChanged) {
-      this.setState(
-        { filteredCoins: newFilteredCoins },
-        () => this.updateUrl());
+      this.setState({ filteredCoins: newFilteredCoins }, () =>
+        this.updateUrl()
+      );
     }
   }
 
@@ -88,7 +88,7 @@ class App extends Component {
     const { filter, denomination } = this.state;
     const search = queryString.stringify({ filter, denomination });
     this.props.history.push({ search });
-  }
+  };
 
   login = async () => {
     this.showLoader();
@@ -141,7 +141,7 @@ class App extends Component {
     this.hideLoader();
   };
 
-  render () {
+  render() {
     const {
       user,
       isLoading,
@@ -180,7 +180,11 @@ class App extends Component {
 
         <Details user={user} coins={coins} denomination={denomination} />
 
-        <div className={`${styles.contentWrapper} ${menuOpen ? styles.contentWrapper__spacingLeft : ''}`}>
+        <div
+          className={`${styles.contentWrapper} ${
+            menuOpen ? styles.contentWrapper__spacingLeft : ''
+          }`}
+        >
           {user && (
             <CoinList
               coins={filteredCoins}
