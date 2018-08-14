@@ -2,26 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import styles from '../styles/CoinList.module.scss';
-import LoadingContext from '../context/loadingContext';
 import Coin from './Coin';
 
-const CoinList = ({ coins, handleOwnedChange }) =>
+const CoinList = ({ coins, handleOwnedChange, loading }) =>
   coins.length > 0 ? (
-    <LoadingContext.Consumer>
-      {isLoading => (
-        <fieldset className={styles.coinsListWrapper} disabled={isLoading}>
-          <ul className={styles.coinList}>
-            {coins.map(coin => (
-              <Coin
-                key={coin.id}
-                coin={coin}
-                handleOwnedChange={handleOwnedChange}
-              />
-            ))}
-          </ul>
-        </fieldset>
-      )}
-    </LoadingContext.Consumer>
+    <fieldset className={styles.coinsListWrapper} disabled={loading}>
+      <ul className={styles.coinList}>
+        {coins.map(coin => (
+          <Coin
+            key={coin.id}
+            coin={coin}
+            handleOwnedChange={handleOwnedChange}
+          />
+        ))}
+      </ul>
+    </fieldset>
   ) : (
     <p>No coins found</p>
   );

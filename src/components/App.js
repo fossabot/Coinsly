@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import queryString from 'qs';
 import LogRocket from 'logrocket';
@@ -8,19 +8,17 @@ import { getCoins } from '../api/coinApi';
 import { addOwned, removeOwned } from '../api/ownedApi';
 import coinHelper from '../helpers/coinHelper';
 
-import Loading from './Loading';
+import LoadingContainer from '../containers/LoadingContainer';
 import Header from './Header';
 import Details from './Details';
 import Menu from './Menu';
-import CoinList from './CoinList';
+import CoinListContainer from '../containers/CoinListContainer';
 import '../styles/global.scss';
 import styles from '../styles/App.module.scss';
-import LoadingContext from '../context/loadingContext';
 
 class App extends Component {
   defaultState = {
     user: null,
-    isLoading: true,
     menuOpen: false,
     coins: [],
     filteredCoins: [],
@@ -33,8 +31,10 @@ class App extends Component {
   state = this.defaultState;
 
   async componentDidMount() {
+    const { showLoader, hideLoader } = this.props;
+
     auth.onAuthStateChanged(async user => {
-      this.showLoader();
+      showLoader();
 
       if (user) {
         const coins = await getCoins(user.uid);
@@ -63,7 +63,7 @@ class App extends Component {
         }
       }
 
-      this.hideLoader();
+      hideLoader();
     });
   }
 
@@ -84,14 +84,6 @@ class App extends Component {
     }
   }
 
-  showLoader = () => {
-    this.setState({ isLoading: true });
-  };
-
-  hideLoader = () => {
-    this.setState({ isLoading: false });
-  };
-
   updateUrl = () => {
     const { filter, denomination } = this.state;
     const search = queryString.stringify({ filter, denomination });
@@ -99,18 +91,18 @@ class App extends Component {
   };
 
   login = async () => {
-    this.showLoader();
+    this.props.showLoader();
     const user = await login();
 
     if (user) {
       this.setState({ user });
     }
 
-    this.hideLoader();
+    this.props.hideLoader();
   };
 
   logout = async () => {
-    this.showLoader();
+    this.props.showLoader();
     await logout();
     this.setState(this.defaultState);
   };
@@ -132,7 +124,7 @@ class App extends Component {
   };
 
   handleOwnedChange = async e => {
-    this.showLoader();
+    this.props.showLoader();
     const { checked, value: coinId } = e.target;
     const { user, coins } = this.state;
     let newCoinsState;
@@ -146,13 +138,12 @@ class App extends Component {
     }
 
     this.setState({ coins: newCoinsState });
-    this.hideLoader();
+    this.props.hideLoader();
   };
 
   render() {
     const {
       user,
-      isLoading,
       menuOpen,
       coins,
       filteredCoins,
@@ -163,8 +154,8 @@ class App extends Component {
     } = this.state;
 
     return (
-      <LoadingContext.Provider value={isLoading}>
-        <Loading />
+      <Fragment>
+        <LoadingContainer />
 
         {user && (
           <Menu
@@ -194,13 +185,13 @@ class App extends Component {
           }`}
         >
           {user && (
-            <CoinList
+            <CoinListContainer
               coins={filteredCoins}
               handleOwnedChange={this.handleOwnedChange}
             />
           )}
         </div>
-      </LoadingContext.Provider>
+      </Fragment>
     );
   }
 }
