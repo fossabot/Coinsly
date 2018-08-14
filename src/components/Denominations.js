@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import styles from '../styles/Filters.module.scss';
 
-const Denominations = ({ denominations, denomination, handleChange }) => (
+const Denominations = ({ denominations, denomination, updateDenomination }) => (
   <div className={styles.filter}>
     {denominations.map(name => (
       <label
@@ -19,7 +19,7 @@ const Denominations = ({ denominations, denomination, handleChange }) => (
           name="denomination"
           value={name}
           checked={denomination === name}
-          onChange={handleChange}
+          onChange={updateDenomination}
           style={{ display: 'none' }}
         />
       </label>
@@ -30,7 +30,7 @@ const Denominations = ({ denominations, denomination, handleChange }) => (
 Denominations.propTypes = {
   denominations: PropTypes.array.isRequired,
   denomination: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired
+  updateDenomination: PropTypes.func.isRequired
 };
 
 export default Denominations;

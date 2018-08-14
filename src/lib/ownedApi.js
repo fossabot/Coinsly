@@ -1,11 +1,21 @@
 import { api } from './firebaseApi';
 
-export const addOwned = async (userId, coinId) => {
+const addOwned = async (coinId, userId) => {
   const owned = await api.collection('owned').add({ userId, coinId });
   return owned.id;
 };
 
-export const getOwned = async userId => {
+const removeOwned = async (coinId, userId) => {
+  const ownedRef = await api
+    .collection('owned')
+    .where('userId', '==', userId)
+    .where('coinId', '==', coinId)
+    .get();
+
+  ownedRef.forEach(o => o.ref.delete());
+};
+
+const getOwned = async userId => {
   const ownedRef = await api
     .collection('owned')
     .where('userId', '==', userId)
@@ -26,12 +36,8 @@ export const getOwned = async userId => {
   return owned;
 };
 
-export const removeOwned = async (userId, coinId) => {
-  const ownedRef = await api
-    .collection('owned')
-    .where('userId', '==', userId)
-    .where('coinId', '==', coinId)
-    .get();
-
-  ownedRef.forEach(o => o.ref.delete());
+export default {
+  addOwned,
+  removeOwned,
+  getOwned
 };

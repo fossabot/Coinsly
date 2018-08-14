@@ -3,10 +3,24 @@
  * ----------------
  */
 
+@value midBp from "./_mediaQueries.scss";
+@value headerHeight from "./Header.module.scss";
+@value menuWidth from "./Menu.module.scss";
+@value totalsHeight from "./Totals.module.scss";
+
 .coinsListWrapper {
   border: none;
   padding: 0;
+  margin-top: calc(headerHeight + totalsHeight);
+  padding: 20px;
+  transition: margin-left 350ms;
 }
+
+    .coinsListWrapper__spacingLeft {
+        @media midBp {
+            margin-left: menuWidth;
+        }
+    }
 
 .coinList {
   display: flex;

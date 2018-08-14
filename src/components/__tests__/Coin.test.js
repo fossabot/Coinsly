@@ -5,7 +5,7 @@ import Coin from '../Coin';
 it('coin markup is correct', () => {
   // Arrange
   const coin = { id: 2, name: 'Kew Gardens' };
-  const component = <Coin coin={coin} handleOwnedChange={() => {}} />;
+  const component = <Coin coin={coin} setOwnedValue={() => {}} />;
 
   // Act
   const { container } = render(component);
@@ -17,7 +17,7 @@ it('coin markup is correct', () => {
 it('label text content is correct', () => {
   // Arrange
   const coin = { id: 2 };
-  const component = <Coin coin={coin} handleOwnedChange={() => {}} />;
+  const component = <Coin coin={coin} setOwnedValue={() => {}} />;
 
   // Act
   const { getByTestId } = render(component);

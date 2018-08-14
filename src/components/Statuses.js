@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 
 import styles from '../styles/Filters.module.scss';
 
-const Filters = ({ filters, filter, handleChange }) => (
+const Statuses = ({ statuses, status, updateStatus }) => (
   <div className={styles.filter}>
-    {filters.map(name => (
+    {statuses.map(name => (
       <label
         key={name}
         className={`${styles.label} ${
-          filter === name ? styles.label__selected : ''
+          status === name ? styles.label__selected : ''
         }`}
       >
         {name}
@@ -18,8 +18,8 @@ const Filters = ({ filters, filter, handleChange }) => (
           type="radio"
           name="filter"
           value={name}
-          checked={filter === name}
-          onChange={handleChange}
+          checked={status === name}
+          onChange={updateStatus}
           style={{ display: 'none' }}
         />
       </label>
@@ -27,10 +27,10 @@ const Filters = ({ filters, filter, handleChange }) => (
   </div>
 );
 
-Filters.propTypes = {
-  filters: PropTypes.array.isRequired,
-  filter: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired
+Statuses.propTypes = {
+  statuses: PropTypes.array.isRequired,
+  status: PropTypes.string.isRequired,
+  updateStatus: PropTypes.func.isRequired
 };
 
-export default Filters;
+export default Statuses;

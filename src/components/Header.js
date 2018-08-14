@@ -3,13 +3,19 @@ import PropTypes from 'prop-types';
 import styles from '../styles/Header.module.scss';
 import buttonStyles from '../styles/buttons.module.scss';
 
-const Header = ({ title, user, login, logout, handleMenuToggle }) => (
+const Header = ({
+  user,
+  userAuthenticated,
+  toggleMenu,
+  login,
+  logout
+}) => (
   <header className={styles.header}>
-    {user ? (
+    {userAuthenticated ? (
       <button
         className={buttonStyles.button}
         type="button"
-        onClick={handleMenuToggle}
+        onClick={toggleMenu}
       >
         Menu
       </button>
@@ -19,10 +25,10 @@ const Header = ({ title, user, login, logout, handleMenuToggle }) => (
       </button>
     )}
 
-    <h1 className={styles.siteTitle}>{title}</h1>
+    <h1 className={styles.siteTitle}>Coinsly</h1>
 
     <div className={styles.userWrapper}>
-      {user && (
+      {userAuthenticated && (
         <Fragment>
           <button
             className={buttonStyles.button}
@@ -44,11 +50,11 @@ const Header = ({ title, user, login, logout, handleMenuToggle }) => (
 );
 
 Header.propTypes = {
-  title: PropTypes.string.isRequired,
-  user: PropTypes.object,
+  userAuthenticated: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired,
+  toggleMenu: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
-  logout: PropTypes.func.isRequired,
-  handleMenuToggle: PropTypes.func.isRequired
+  logout: PropTypes.func.isRequired
 };
 
 export default Header;

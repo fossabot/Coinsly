@@ -1,6 +1,6 @@
 import { auth, GoogleAuthProvider } from './firebaseApi';
 
-export const login = async () => {
+const login = async () => {
   try {
     const result = await auth.signInWithPopup(GoogleAuthProvider);
     return result.user;
@@ -9,8 +9,12 @@ export const login = async () => {
   }
 };
 
-export const logout = async () => {
+const logout = async () => {
   await auth.signOut();
 };
 
-export default auth;
+export default {
+  auth,
+  login,
+  logout
+};
