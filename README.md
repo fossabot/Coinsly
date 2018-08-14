@@ -12,5 +12,3 @@
 
 [![Build Status](https://travis-ci.org/DamianMullins/Coinsly.svg)](https://travis-ci.org/DamianMullins/Coinsly)
 [![Coverage Status](https://coveralls.io/repos/github/DamianMullins/Coinsly/badge.svg)](https://coveralls.io/github/DamianMullins/Coinsly)
-[![Dependency Status](https://gemnasium.com/badges/github.com/DamianMullins/Coinsly.svg)](https://gemnasium.com/github.com/DamianMullins/Coinsly)
-
