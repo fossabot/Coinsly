@@ -10,7 +10,7 @@ const getNewState = (props, state) => {
 };
 
 const getTotals = coins => {
-  const owned = coins.filter(coin => coin.ownedId !== undefined);
+  const owned = coins.filter(coin => coin.owned);
   const percentage = (owned.length / coins.length) * 100;
 
   return {

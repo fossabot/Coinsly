@@ -5,16 +5,18 @@ import {
   setAllFilters,
   addAllCoins,
   setFilteredCoins,
-  setUserDetails
+  filterCoins,
+  setUserDetails,
+  addOwnedCoin
 } from '../state/actions';
 
-const mapStateToProps = ({ loading, menu, filters, coins, user }) => ({
+const mapStateToProps = ({ loading, menu, coins, user }) => ({
   loading,
   menuOpen: menu.isOpen,
-  statuses: filters.statuses,
-  status: filters.status,
-  denominations: filters.denominations,
-  denomination: filters.denomination,
+  statuses: coins.statuses,
+  status: coins.status,
+  denominations: coins.denominations,
+  denomination: coins.denomination,
   coins: coins.allCoins,
   filteredCoins: coins.filteredCoins,
   user
@@ -26,7 +28,9 @@ const mapDispatchToProps = dispatch => ({
   setAllFilters: filters => dispatch(setAllFilters(filters)),
   addAllCoins: coins => dispatch(addAllCoins(coins)),
   setFilteredCoins: coins => dispatch(setFilteredCoins(coins)),
-  setUserDetails: coins => dispatch(setUserDetails(coins))
+  filterCoins: () => dispatch(filterCoins()),
+  setUserDetails: coins => dispatch(setUserDetails(coins)),
+  addOwnedCoin: (coinId, ownerId) => dispatch(addOwnedCoin(coinId, ownerId))
 });
 
 export default connect(

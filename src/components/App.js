@@ -5,7 +5,7 @@ import LogRocket from 'logrocket';
 
 import auth, { login, logout } from '../api/authApi';
 import { getCoins } from '../api/coinApi';
-import { addOwned, removeOwned } from '../api/ownedApi';
+// import { addOwned, removeOwned } from '../api/ownedApi';
 import coinHelper from '../helpers/coinHelper';
 
 import LoadingContainer from '../containers/LoadingContainer';
@@ -13,6 +13,7 @@ import HeaderContainer from '../containers/HeaderContainer';
 import DetailsContainer from '../containers/DetailsContainer';
 import MenuContainer from '../containers/MenuContainer';
 import CoinListContainer from '../containers/CoinListContainer';
+
 import '../styles/global.scss';
 import styles from '../styles/App.module.scss';
 
@@ -24,6 +25,7 @@ class App extends Component {
       statuses,
       setAllFilters,
       addAllCoins,
+      filterCoins,
       setUserDetails
     } = this.props;
 
@@ -38,8 +40,9 @@ class App extends Component {
           status = statuses[0]
         } = queryString.parse(this.props.location.search.slice(1));
 
-        setAllFilters({ status, denomination, denominations });
         addAllCoins(coins);
+        setAllFilters({ status, denomination, denominations });
+        filterCoins();
         setUserDetails(user);
 
         if (process.env.NODE_ENV === 'production') {
@@ -52,30 +55,6 @@ class App extends Component {
 
       hideLoader();
     });
-  }
-
-  componentDidUpdate() {
-    const {
-      coins,
-      filteredCoins,
-      status,
-      denomination,
-      setFilteredCoins
-    } = this.props;
-
-    const newFilteredCoins = coinHelper.filterCoins(
-      coins,
-      status,
-      denomination
-    );
-
-    const filterChanged =
-      JSON.stringify(newFilteredCoins) !== JSON.stringify(filteredCoins);
-
-    if (filterChanged) {
-      setFilteredCoins(newFilteredCoins);
-      this.updateUrl();
-    }
   }
 
   updateUrl = () => {
@@ -101,26 +80,8 @@ class App extends Component {
     this.setState(this.defaultState);
   };
 
-  handleOwnedChange = async e => {
-    this.props.showLoader();
-    const { checked, value: coinId } = e.target;
-    const { coins, addAllCoins, user } = this.props;
-    let newCoinsState;
-
-    if (checked) {
-      const ownedId = await addOwned(user.uid, coinId);
-      newCoinsState = coinHelper.addOwnedId(coins, coinId, ownedId);
-    } else {
-      await removeOwned(user.uid, coinId);
-      newCoinsState = coinHelper.removeOwnedId(coins, coinId);
-    }
-
-    addAllCoins(newCoinsState);
-    this.props.hideLoader();
-  };
-
   render() {
-    const { menuOpen, coins, filteredCoins, user } = this.props;
+    const { menuOpen, user } = this.props;
 
     return (
       <Fragment>
@@ -135,7 +96,7 @@ class App extends Component {
           logout={this.logout}
         />
 
-        <DetailsContainer user={user} coins={coins} />
+        <DetailsContainer />
 
         <div
           className={`${styles.contentWrapper} ${
@@ -143,10 +104,7 @@ class App extends Component {
           }`}
         >
           {user && (
-            <CoinListContainer
-              coins={filteredCoins}
-              handleOwnedChange={this.handleOwnedChange}
-            />
+            <CoinListContainer handleOwnedChange={this.handleOwnedChange} />
           )}
         </div>
       </Fragment>

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styles from '../styles/Coin.module.scss';
 import tick from '../assets/tick.svg';
 
-const Coin = ({ coin, handleOwnedChange }) => (
+const Coin = ({ coin, setOwnedValue }) => (
   <li className={`${styles.coin} ${coin.owned ? styles.coin__owned : ''}`}>
     <label className={styles.label} data-testid="coin-label">
       {coin.owned && <img className={styles.tick} src={tick} alt="" />}
@@ -15,7 +15,7 @@ const Coin = ({ coin, handleOwnedChange }) => (
         className={styles.input}
         type="checkbox"
         checked={coin.owned}
-        onChange={handleOwnedChange}
+        onChange={setOwnedValue}
         value={coin.id}
       />
     </label>
@@ -24,7 +24,7 @@ const Coin = ({ coin, handleOwnedChange }) => (
 
 Coin.propTypes = {
   coin: PropTypes.object.isRequired,
-  handleOwnedChange: PropTypes.func.isRequired
+  setOwnedValue: PropTypes.func.isRequired
 };
 
 export default Coin;

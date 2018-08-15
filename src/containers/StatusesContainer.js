@@ -2,9 +2,9 @@ import { connect } from 'react-redux';
 import Statuses from '../components/Statuses';
 import { setStatus } from '../state/actions';
 
-const mapStateToProps = ({ filters }) => ({
-  statuses: filters.statuses,
-  status: filters.status
+const mapStateToProps = ({ coins }) => ({
+  statuses: coins.statuses,
+  status: coins.status
 });
 
 const mapDispatchToProps = dispatch => ({

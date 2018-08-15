@@ -24,7 +24,6 @@ export const getCoins = async userId => {
     coins.push({
       ...coinData,
       id,
-      ...(owned && { ownedId: owned.id }),
       owned: owned !== undefined
     });
   });

@@ -2,17 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import styles from '../styles/CoinList.module.scss';
-import Coin from './Coin';
+import CoinContainer from '../containers/CoinContainer';
 
-const CoinList = ({ coins, handleOwnedChange, loading }) =>
-  coins.length > 0 ? (
+const CoinList = ({ coins, loading }) => {
+  console.log('fff', coins)
+  return coins.length > 0 ? (
     <fieldset className={styles.coinsListWrapper} disabled={loading}>
       <ul className={styles.coinList}>
         {coins.map(coin => (
-          <Coin
+          <CoinContainer
             key={coin.id}
             coin={coin}
-            handleOwnedChange={handleOwnedChange}
           />
         ))}
       </ul>
@@ -20,10 +20,10 @@ const CoinList = ({ coins, handleOwnedChange, loading }) =>
   ) : (
     <p>No coins found</p>
   );
+};
 
 CoinList.propTypes = {
-  coins: PropTypes.array,
-  handleOwnedChange: PropTypes.func.isRequired
+  coins: PropTypes.array
 };
 
 export default CoinList;

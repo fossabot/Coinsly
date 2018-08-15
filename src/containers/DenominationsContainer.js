@@ -2,9 +2,9 @@ import { connect } from 'react-redux';
 import Denominations from '../components/Denominations';
 import { setDenomination } from '../state/actions';
 
-const mapStateToProps = ({ filters }) => ({
-  denominations: filters.denominations,
-  denomination: filters.denomination
+const mapStateToProps = ({ coins }) => ({
+  denominations: coins.denominations,
+  denomination: coins.denomination
 });
 
 const mapDispatchToProps = dispatch => ({

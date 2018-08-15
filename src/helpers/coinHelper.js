@@ -1,11 +1,12 @@
-const filterNeeded = coins => coins.filter(coin => coin.ownedId === undefined);
+const filterNeeded = coins => coins.filter(coin => !coin.owned);
 
-const filterOwned = coins => coins.filter(coin => coin.ownedId !== undefined);
+const filterOwned = coins => coins.filter(coin => coin.owned);
 
 const filterByDenomination = (coins, denomination) =>
   coins.filter(coin => coin.denomination === denomination);
 
 const filterCoins = (coins, filter, denomination) => {
+  console.log({ coins, filter, denomination });
   const byDenomination = filterByDenomination(coins, denomination);
 
   switch (filter) {
@@ -18,17 +19,17 @@ const filterCoins = (coins, filter, denomination) => {
   }
 };
 
-const addOwnedId = (coins, coinId, ownedId) => {
-  const coinsCopy = [...coins];
-  const coin = coinsCopy.find(c => c.id === coinId);
+// const addOwnedId = (coins, coinId, ownedId) => {
+//   const coinsCopy = [...coins];
+//   const coin = coinsCopy.find(c => c.id === coinId);
 
-  if (coin) {
-    coin.ownedId = ownedId;
-    coin.owned = true;
-  }
+//   if (coin) {
+//     coin.ownedId = ownedId;
+//     coin.owned = true;
+//   }
 
-  return coinsCopy;
-};
+//   return coinsCopy;
+// };
 
 const removeOwnedId = (coins, coinId) => {
   const coin = coins.find(c => c.id === coinId);
@@ -61,7 +62,7 @@ const getDenominations = coins => [
 export default {
   filterCoins,
   filterByDenomination,
-  addOwnedId,
+  // addOwnedId,
   removeOwnedId,
   getDenominations
 };
