@@ -4,6 +4,11 @@ export const isLoading = loading => ({
   loading
 });
 
+export const MENU_TOGGLE = 'MENU_TOGGLE';
+export const toggleMenu = () => ({
+  type: MENU_TOGGLE
+});
+
 export const FILTERS_SET_ALL = 'FILTERS_SET_ALL';
 export const setAllFilters = ({ status, denomination, denominations }) => ({
   type: FILTERS_SET_ALL,

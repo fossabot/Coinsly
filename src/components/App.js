@@ -9,8 +9,8 @@ import { addOwned, removeOwned } from '../api/ownedApi';
 import coinHelper from '../helpers/coinHelper';
 
 import LoadingContainer from '../containers/LoadingContainer';
-import Header from './Header';
-import Details from './Details';
+import HeaderContainer from '../containers/HeaderContainer';
+import DetailsContainer from '../containers/DetailsContainer';
 import MenuContainer from '../containers/MenuContainer';
 import CoinListContainer from '../containers/CoinListContainer';
 import '../styles/global.scss';
@@ -126,32 +126,23 @@ class App extends Component {
   };
 
   render() {
-    const {
-      user,
-      menuOpen,
-      coins,
-      filteredCoins
-    } = this.state;
+    const { user, coins, filteredCoins } = this.state;
+    const { menuOpen } = this.props;
 
     return (
       <Fragment>
         <LoadingContainer />
 
-        {user && (
-          <MenuContainer
-            menuOpen={menuOpen}
-          />
-        )}
+        {user && <MenuContainer />}
 
-        <Header
+        <HeaderContainer
           title="Coinsly"
           user={user}
           login={this.login}
           logout={this.logout}
-          handleMenuToggle={this.handleMenuToggle}
         />
 
-        <Details user={user} coins={coins} />
+        <DetailsContainer user={user} coins={coins} />
 
         <div
           className={`${styles.contentWrapper} ${

@@ -31,7 +31,7 @@ const Details = ({ user, coins, denomination }) =>
 Details.propTypes = {
   user: PropTypes.object,
   coins: PropTypes.array.isRequired,
-  // denomination: PropTypes.string.isRequired
+  denomination: PropTypes.string.isRequired
 };
 
 export default Details;

@@ -5,8 +5,8 @@ import StatusesContainer from '../containers/StatusesContainer';
 import DenominationsContainer from '../containers/DenominationsContainer';
 import styles from '../styles/Menu.module.scss';
 
-const Menu = ({ menuOpen }) => (
-  <ul className={`${styles.menu} ${menuOpen ? styles.menu__open : ''}`}>
+const Menu = ({ isOpen }) => (
+  <ul className={`${styles.menu} ${isOpen ? styles.menu__open : ''}`}>
     <li className={styles.menu_item}>
       <h3 className={styles.menu_heading}>Filters</h3>
       <StatusesContainer />
@@ -20,7 +20,7 @@ const Menu = ({ menuOpen }) => (
 );
 
 Menu.propTypes = {
-  menuOpen: PropTypes.bool.isRequired
+  isOpen: PropTypes.bool.isRequired
 };
 
 export default Menu;

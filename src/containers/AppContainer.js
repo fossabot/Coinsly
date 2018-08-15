@@ -2,8 +2,9 @@ import { connect } from 'react-redux';
 import App from '../components/App';
 import { isLoading, setAllFilters } from '../state/actions';
 
-const mapStateToProps = ({ loading, filters }) => ({
+const mapStateToProps = ({ loading, menu, filters }) => ({
   loading,
+  menuOpen: menu.isOpen,
   statuses: filters.statuses,
   status: filters.status,
   denominations: filters.denominations,

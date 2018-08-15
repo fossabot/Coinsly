@@ -1,13 +1,8 @@
 import { connect } from 'react-redux';
 import Menu from '../components/Menu';
-// import { setStatus, setDenomination } from '../state/actions';
 
-const mapDispatchToProps = dispatch => ({
-  // updateStatus: status => dispatch(setStatus(status)),
-  // updateDenomination: denomination => dispatch(setDenomination(denomination))
+const mapStateToProps = ({ menu }) => ({
+  isOpen: menu.isOpen
 });
 
-export default connect(
-  undefined,
-  mapDispatchToProps
-)(Menu);
+export default connect(mapStateToProps)(Menu);

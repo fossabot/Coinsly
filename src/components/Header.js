@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import styles from '../styles/Header.module.scss';
 import buttonStyles from '../styles/buttons.module.scss';
 
-const Header = ({ title, user, login, logout, handleMenuToggle }) => (
+const Header = ({ title, user, login, logout, toggleMenu }) => (
   <header className={styles.header}>
     {user ? (
       <button
         className={buttonStyles.button}
         type="button"
-        onClick={handleMenuToggle}
+        onClick={toggleMenu}
       >
         Menu
       </button>
@@ -48,7 +48,7 @@ Header.propTypes = {
   user: PropTypes.object,
   login: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
-  handleMenuToggle: PropTypes.func.isRequired
+  toggleMenu: PropTypes.func.isRequired
 };
 
 export default Header;
