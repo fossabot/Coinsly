@@ -17,17 +17,15 @@ import '../styles/global.scss';
 import styles from '../styles/App.module.scss';
 
 class App extends Component {
-  defaultState = {
-    user: null,
-    menuOpen: false,
-    coins: [],
-    filteredCoins: []
-  };
-
-  state = this.defaultState;
-
   async componentDidMount() {
-    const { showLoader, hideLoader, statuses, updateAllFilters } = this.props;
+    const {
+      showLoader,
+      hideLoader,
+      statuses,
+      setAllFilters,
+      addAllCoins,
+      setUserDetails
+    } = this.props;
 
     auth.onAuthStateChanged(async user => {
       showLoader();
@@ -35,18 +33,14 @@ class App extends Component {
       if (user) {
         const coins = await getCoins(user.uid);
         const denominations = coinHelper.getDenominations(coins);
-
         const {
           denomination = denominations[0],
           status = statuses[0]
         } = queryString.parse(this.props.location.search.slice(1));
 
-        updateAllFilters({ status, denomination, denominations });
-
-        this.setState({
-          user,
-          coins
-        });
+        setAllFilters({ status, denomination, denominations });
+        addAllCoins(coins);
+        setUserDetails(user);
 
         if (process.env.NODE_ENV === 'production') {
           LogRocket.identify(user.uid, {
@@ -61,20 +55,26 @@ class App extends Component {
   }
 
   componentDidUpdate() {
-    const { coins, filteredCoins } = this.state;
-    const { status, denomination } = this.props;
+    const {
+      coins,
+      filteredCoins,
+      status,
+      denomination,
+      setFilteredCoins
+    } = this.props;
+
     const newFilteredCoins = coinHelper.filterCoins(
       coins,
       status,
       denomination
     );
+
     const filterChanged =
       JSON.stringify(newFilteredCoins) !== JSON.stringify(filteredCoins);
 
     if (filterChanged) {
-      this.setState({ filteredCoins: newFilteredCoins }, () =>
-        this.updateUrl()
-      );
+      setFilteredCoins(newFilteredCoins);
+      this.updateUrl();
     }
   }
 
@@ -89,7 +89,7 @@ class App extends Component {
     const user = await login();
 
     if (user) {
-      this.setState({ user });
+      this.props.setUserDetails(user);
     }
 
     this.props.hideLoader();
@@ -101,16 +101,10 @@ class App extends Component {
     this.setState(this.defaultState);
   };
 
-  handleMenuToggle = () => {
-    this.setState(({ menuOpen }) => ({
-      menuOpen: !menuOpen
-    }));
-  };
-
   handleOwnedChange = async e => {
     this.props.showLoader();
     const { checked, value: coinId } = e.target;
-    const { user, coins } = this.state;
+    const { coins, addAllCoins, user } = this.props;
     let newCoinsState;
 
     if (checked) {
@@ -121,13 +115,12 @@ class App extends Component {
       newCoinsState = coinHelper.removeOwnedId(coins, coinId);
     }
 
-    this.setState({ coins: newCoinsState });
+    addAllCoins(newCoinsState);
     this.props.hideLoader();
   };
 
   render() {
-    const { user, coins, filteredCoins } = this.state;
-    const { menuOpen } = this.props;
+    const { menuOpen, coins, filteredCoins, user } = this.props;
 
     return (
       <Fragment>

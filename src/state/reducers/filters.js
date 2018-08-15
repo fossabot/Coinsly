@@ -16,9 +16,11 @@ const filters = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
       case FILTERS_SET_ALL: {
-        draft.status = action.status;
-        draft.denomination = action.denomination;
-        draft.denominations = action.denominations;
+        const { filters } = action;
+
+        draft.status = filters.status;
+        draft.denomination = filters.denomination;
+        draft.denominations = filters.denominations;
         return;
       }
 

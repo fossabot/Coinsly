@@ -9,12 +9,10 @@ export const toggleMenu = () => ({
   type: MENU_TOGGLE
 });
 
-export const FILTERS_SET_ALL = 'FILTERS_SET_ALL';
-export const setAllFilters = ({ status, denomination, denominations }) => ({
+export const FILTERS_SET_ALL   = 'FILTERS_SET_ALL';
+export const setAllFilters = filters => ({
   type: FILTERS_SET_ALL,
-  status,
-  denomination,
-  denominations
+  filters
 });
 
 export const FILTERS_SET_STATUS = 'FILTERS_SET_STATUS';
@@ -27,4 +25,22 @@ export const FILTERS_SET_DENOMINATION = 'FILTERS_SET_DENOMINATION';
 export const setDenomination = ({ target }) => ({
   type: FILTERS_SET_DENOMINATION,
   denomination: target.value
+});
+
+export const COINS_ADD_ALL = 'COINS_ADD_ALL';
+export const addAllCoins = coins => ({
+  type: COINS_ADD_ALL,
+  coins
+});
+
+export const COINS_SET_FILTERED = 'COINS_SET_FILTERED';
+export const setFilteredCoins = coins => ({
+  type: COINS_SET_FILTERED,
+  coins
+});
+
+export const USER_SET_DETAILS = 'USER_SET_DETAILS';
+export const setUserDetails = user => ({
+  type: USER_SET_DETAILS,
+  user
 });
