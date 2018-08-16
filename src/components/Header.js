@@ -3,9 +3,16 @@ import PropTypes from 'prop-types';
 import styles from '../styles/Header.module.scss';
 import buttonStyles from '../styles/buttons.module.scss';
 
-const Header = ({ title, user, login, logout, toggleMenu }) => (
+const Header = ({
+  title,
+  login,
+  logout,
+  user,
+  userAuthenticated,
+  toggleMenu
+}) => (
   <header className={styles.header}>
-    {user ? (
+    {userAuthenticated ? (
       <button
         className={buttonStyles.button}
         type="button"
@@ -22,7 +29,7 @@ const Header = ({ title, user, login, logout, toggleMenu }) => (
     <h1 className={styles.siteTitle}>{title}</h1>
 
     <div className={styles.userWrapper}>
-      {user && (
+      {userAuthenticated && (
         <Fragment>
           <button
             className={buttonStyles.button}
@@ -45,9 +52,10 @@ const Header = ({ title, user, login, logout, toggleMenu }) => (
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
-  user: PropTypes.object,
   login: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
+  userAuthenticated: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired,
   toggleMenu: PropTypes.func.isRequired
 };
 

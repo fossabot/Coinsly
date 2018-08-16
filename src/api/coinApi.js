@@ -1,19 +1,19 @@
 import { api } from './firebaseApi';
-import { getOwned } from './ownedApi';
-import { getImage } from './storageApi';
+import ownedApi from './ownedApi';
+import storageApi from './storageApi';
 
-export const addCoin = async coin => {
-  const imageUrl = await getImage(`${coin.denomination}/${coin.imageUrl}`);
+const addCoin = async coin => {
+  const imageUrl = await storageApi.getImage(`${coin.denomination}/${coin.imageUrl}`);
   await api.collection('coins').add({ ...coin, imageUrl });
 };
 
-export const getCoins = async userId => {
+const getCoins = async userId => {
   const coinsRef = await api
     .collection('coins')
     .orderBy('order')
     .get();
 
-  const userOwned = await getOwned(userId);
+  const userOwned = await ownedApi.getOwned(userId);
   const coins = [];
 
   coinsRef.forEach(coin => {
@@ -24,9 +24,14 @@ export const getCoins = async userId => {
     coins.push({
       ...coinData,
       id,
-      owned: owned !== undefined
+      owned: !!owned
     });
   });
 
   return coins;
+};
+
+export default {
+  addCoin,
+  getCoins
 };

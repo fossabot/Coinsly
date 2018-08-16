@@ -4,6 +4,7 @@ import {
   FILTERS_SET_STATUS,
   FILTERS_SET_DENOMINATION,
   COINS_ADD_ALL,
+  COINS_ADD_DENOMINATIONS,
   COINS_SET_FILTERED,
   COINS_FILTER,
   COINS_ADD_OWNED,
@@ -28,7 +29,6 @@ const coins = (state = initialState, action) =>
 
         draft.status = filters.status;
         draft.denomination = filters.denomination;
-        draft.denominations = filters.denominations;
         return;
       }
 
@@ -57,6 +57,11 @@ const coins = (state = initialState, action) =>
 
       case COINS_ADD_ALL: {
         draft.allCoins = action.coins;
+        return;
+      }
+
+      case COINS_ADD_DENOMINATIONS: {
+        draft.denominations = action.denominations;
         return;
       }
 

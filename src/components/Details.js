@@ -29,7 +29,7 @@ const Details = ({ user, coins, denomination }) =>
   );
 
 Details.propTypes = {
-  user: PropTypes.object,
+  user: PropTypes.object.isRequired,
   coins: PropTypes.array.isRequired,
   denomination: PropTypes.string.isRequired
 };

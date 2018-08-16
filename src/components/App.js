@@ -1,12 +1,9 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import queryString from 'qs';
 import LogRocket from 'logrocket';
 
-import auth, { login, logout } from '../api/authApi';
-import { getCoins } from '../api/coinApi';
-// import { addOwned, removeOwned } from '../api/ownedApi';
-import coinHelper from '../helpers/coinHelper';
+import authApi from '../api/authApi';
 
 import LoadingContainer from '../containers/LoadingContainer';
 import HeaderContainer from '../containers/HeaderContainer';
@@ -19,31 +16,9 @@ import styles from '../styles/App.module.scss';
 
 class App extends Component {
   async componentDidMount() {
-    const {
-      showLoader,
-      hideLoader,
-      statuses,
-      setAllFilters,
-      addAllCoins,
-      filterCoins,
-      setUserDetails
-    } = this.props;
-
-    auth.onAuthStateChanged(async user => {
-      showLoader();
-
+    authApi.auth.onAuthStateChanged(async user => {
       if (user) {
-        const coins = await getCoins(user.uid);
-        const denominations = coinHelper.getDenominations(coins);
-        const {
-          denomination = denominations[0],
-          status = statuses[0]
-        } = queryString.parse(this.props.location.search.slice(1));
-
-        addAllCoins(coins);
-        setAllFilters({ status, denomination, denominations });
-        filterCoins();
-        setUserDetails(user);
+        this.props.setInitialState(user);
 
         if (process.env.NODE_ENV === 'production') {
           LogRocket.identify(user.uid, {
@@ -52,20 +27,12 @@ class App extends Component {
           });
         }
       }
-
-      hideLoader();
     });
   }
 
-  updateUrl = () => {
-    const { status, denomination } = this.props;
-    const search = queryString.stringify({ status, denomination });
-    this.props.history.push({ search });
-  };
-
   login = async () => {
     this.props.showLoader();
-    const user = await login();
+    const user = await authApi.login();
 
     if (user) {
       this.props.setUserDetails(user);
@@ -76,8 +43,7 @@ class App extends Component {
 
   logout = async () => {
     this.props.showLoader();
-    await logout();
-    this.setState(this.defaultState);
+    await authApi.logout();
   };
 
   render() {
@@ -87,11 +53,10 @@ class App extends Component {
       <Fragment>
         <LoadingContainer />
 
-        {user && <MenuContainer />}
+        <MenuContainer />
 
         <HeaderContainer
           title="Coinsly"
-          user={user}
           login={this.login}
           logout={this.logout}
         />
@@ -111,5 +76,14 @@ class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  menuOpen: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired,
+  showLoader: PropTypes.func.isRequired,
+  hideLoader: PropTypes.func.isRequired,
+  setInitialState: PropTypes.func.isRequired,
+};
 
 export default withRouter(App);
