@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import App from '../components/App';
 import { setInitialState } from '../store/actions';
 import { onAuthChanged } from '../store/actions/user';
@@ -11,4 +12,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   undefined,
   mapDispatchToProps
-)(App);
+)(withRouter(App));

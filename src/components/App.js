@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 
 import LoadingContainer from '../containers/LoadingContainer';
 import HeaderContainer from '../containers/HeaderContainer';
@@ -33,4 +32,4 @@ App.propTypes = {
   setInitialState: PropTypes.func.isRequired
 };
 
-export default withRouter(App);
+export default App;
