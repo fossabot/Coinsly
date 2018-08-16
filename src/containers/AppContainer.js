@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import App from '../components/App';
-import { onAuthChanged, setInitialState } from '../state/actions';
+import { setInitialState } from '../store/actions';
+import { onAuthChanged } from '../store/actions/user';
 
 const mapDispatchToProps = dispatch => ({
   onAuthChanged: () => dispatch(onAuthChanged()),

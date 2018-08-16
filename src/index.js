@@ -7,8 +7,8 @@ import { Provider } from 'react-redux';
 import LogRocket from 'logrocket';
 import setupLogRocketReact from 'logrocket-react';
 
-import store from './state/configureStore';
-import history from './state/history';
+import store from './store/configureStore';
+import history from './store/history';
 import AppContainer from './containers/AppContainer';
 
 if (process.env.NODE_ENV === 'production') {

@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import Header from '../components/Header';
-import { toggleMenu, login, logout } from '../state/actions';
+import { login, logout } from '../store/actions/user';
+import { toggleMenu } from '../store/actions/menu';
 
 const mapStateToProps = ({ user }) => ({
   userAuthenticated: user.uid !== undefined,

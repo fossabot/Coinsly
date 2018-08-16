@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Statuses from '../components/Statuses';
-import { setStatus } from '../state/actions';
+import { updateStatus } from '../store/actions/filters';
 
 const mapStateToProps = ({ coins }) => ({
   statuses: coins.statuses,
@@ -8,7 +8,7 @@ const mapStateToProps = ({ coins }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateStatus: status => dispatch(setStatus(status))
+  updateStatus: status => dispatch(updateStatus(status))
 });
 
 export default connect(

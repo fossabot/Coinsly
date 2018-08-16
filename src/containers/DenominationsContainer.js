@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Denominations from '../components/Denominations';
-import { setDenomination } from '../state/actions';
+import { updateDenomination } from '../store/actions/filters';
 
 const mapStateToProps = ({ coins }) => ({
   denominations: coins.denominations,
@@ -8,7 +8,7 @@ const mapStateToProps = ({ coins }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateDenomination: denomination => dispatch(setDenomination(denomination))
+  updateDenomination: denomination => dispatch(updateDenomination(denomination))
 });
 
 export default connect(
