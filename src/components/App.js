@@ -29,28 +29,12 @@ class App extends Component {
     });
   }
 
-  login = async () => {
-    this.props.showLoader();
-    const user = await authApi.login();
-
-    if (user) {
-      this.props.setUserDetails(user);
-    }
-
-    this.props.hideLoader();
-  };
-
-  logout = async () => {
-    this.props.showLoader();
-    await authApi.logout();
-  };
-
   render() {
     return (
       <Fragment>
         <LoadingContainer />
         <MenuContainer />
-        <HeaderContainer login={this.login} logout={this.logout} />
+        <HeaderContainer />
         <DetailsContainer />
         <CoinListContainer />
       </Fragment>
@@ -59,9 +43,6 @@ class App extends Component {
 }
 
 App.propTypes = {
-  loading: PropTypes.bool.isRequired,
-  showLoader: PropTypes.func.isRequired,
-  hideLoader: PropTypes.func.isRequired,
   setInitialState: PropTypes.func.isRequired
 };
 

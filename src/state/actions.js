@@ -1,5 +1,6 @@
 import { push } from 'connected-react-router';
 import qs from 'qs';
+import authApi from '../api/authApi';
 import coinApi from '../api/coinApi';
 import ownedApi from '../api/ownedApi';
 import {
@@ -14,7 +15,8 @@ import {
   COINS_FILTER,
   COINS_ADD_OWNED,
   COINS_REMOVE_OWNED,
-  USER_SET_DETAILS
+  USER_SET_DETAILS,
+  USER_LOGOUT
 } from './constants';
 
 /**
@@ -103,10 +105,27 @@ export const setOwnedValue = ({ target }) => async (dispatch, getState) => {
 /**
  * User
  */
-export const setUserDetails = user => ({
+export const addUserDetails = user => ({
   type: USER_SET_DETAILS,
   user
 });
+
+const logoutUser = () => ({
+  type: USER_LOGOUT
+});
+
+export const login = user => async dispatch => {
+  dispatch(isLoading(true));
+  await authApi.login();
+  dispatch(isLoading(false));
+};
+
+export const logout = () => async dispatch => {
+  dispatch(isLoading(true));
+  await authApi.logout();
+  dispatch(logoutUser());
+  dispatch(isLoading(false));
+};
 
 /**
  * Initial State
@@ -122,7 +141,7 @@ export const setInitialState = user => async (dispatch, getState) => {
   const qsFilters = qs.parse(search.slice(1));
   const { denomination = denominations[0], status = statuses[0] } = qsFilters;
 
-  dispatch(setUserDetails(user));
+  dispatch(addUserDetails(user));
   dispatch(addAllCoins(coins));
   dispatch(addAllDenominations(denominations));
   dispatch(setAllFilters({ status, denomination }));

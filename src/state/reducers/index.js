@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { USER_LOGOUT } from '../constants';
 import loading from './loading';
 import menu from './menu';
 import coins from './coins';
@@ -12,7 +13,7 @@ const appReducer = combineReducers({
 });
 
 const rootReducer = (state, action) => {
-  if (action.type === 'USER_LOGOUT') {
+  if (action.type === USER_LOGOUT) {
     const { loading } = state;
     state = { loading };
   }

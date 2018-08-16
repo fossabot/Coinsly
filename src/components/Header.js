@@ -4,11 +4,11 @@ import styles from '../styles/Header.module.scss';
 import buttonStyles from '../styles/buttons.module.scss';
 
 const Header = ({
-  login,
-  logout,
   user,
   userAuthenticated,
-  toggleMenu
+  toggleMenu,
+  login,
+  logout
 }) => (
   <header className={styles.header}>
     {userAuthenticated ? (
@@ -50,11 +50,11 @@ const Header = ({
 );
 
 Header.propTypes = {
-  login: PropTypes.func.isRequired,
-  logout: PropTypes.func.isRequired,
   userAuthenticated: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
-  toggleMenu: PropTypes.func.isRequired
+  toggleMenu: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired
 };
 
 export default Header;
