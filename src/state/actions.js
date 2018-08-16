@@ -1,5 +1,6 @@
 import { push } from 'connected-react-router';
 import qs from 'qs';
+import LogRocket from 'logrocket';
 import authApi from '../api/authApi';
 import coinApi from '../api/coinApi';
 import ownedApi from '../api/ownedApi';
@@ -113,6 +114,21 @@ export const addUserDetails = user => ({
 const logoutUser = () => ({
   type: USER_LOGOUT
 });
+
+export const onAuthChanged = () => dispatch => {
+  authApi.auth.onAuthStateChanged(async user => {
+    if (user) {
+      dispatch(setInitialState(user));
+
+      if (process.env.NODE_ENV === 'production') {
+        LogRocket.identify(user.uid, {
+          name: user.displayName,
+          email: user.email
+        });
+      }
+    }
+  });
+};
 
 export const login = user => async dispatch => {
   dispatch(isLoading(true));
