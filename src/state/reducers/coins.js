@@ -1,10 +1,10 @@
 import { produce } from 'immer';
 import {
+  FILTERS_ADD_DENOMINATIONS,
   FILTERS_SET_ALL,
   FILTERS_SET_STATUS,
   FILTERS_SET_DENOMINATION,
   COINS_ADD_ALL,
-  COINS_ADD_DENOMINATIONS,
   COINS_SET_FILTERED,
   COINS_FILTER,
   COINS_ADD_OWNED,
@@ -24,6 +24,12 @@ const initialState = {
 const coins = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
+      case FILTERS_ADD_DENOMINATIONS: {
+        draft.denominations = action.denominations;
+
+        return;
+      }
+
       case FILTERS_SET_ALL: {
         const { filters } = action;
 
@@ -59,12 +65,6 @@ const coins = (state = initialState, action) =>
 
       case COINS_ADD_ALL: {
         draft.allCoins = action.coins;
-
-        return;
-      }
-
-      case COINS_ADD_DENOMINATIONS: {
-        draft.denominations = action.denominations;
 
         return;
       }

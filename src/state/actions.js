@@ -5,11 +5,11 @@ import ownedApi from '../api/ownedApi';
 import {
   IS_LOADING,
   MENU_TOGGLE,
+  FILTERS_ADD_DENOMINATIONS,
   FILTERS_SET_ALL,
   FILTERS_SET_STATUS,
   FILTERS_SET_DENOMINATION,
   COINS_ADD_ALL,
-  COINS_ADD_DENOMINATIONS,
   COINS_SET_FILTERED,
   COINS_FILTER,
   COINS_ADD_OWNED,
@@ -35,6 +35,11 @@ export const toggleMenu = () => ({
 /**
  * Filters
  */
+const addAllDenominations = denominations => ({
+  type: FILTERS_ADD_DENOMINATIONS,
+  denominations
+});
+
 export const setAllFilters = filters => ({
   type: FILTERS_SET_ALL,
   filters
@@ -58,20 +63,13 @@ const addAllCoins = coins => ({
   coins
 });
 
-const addAllDenominations = denominations => ({
-  type: COINS_ADD_DENOMINATIONS,
-  denominations
-});
-
 export const setFilteredCoins = coins => ({
   type: COINS_SET_FILTERED,
   coins
 });
 
-export const filterCoins = (status, denomination) => ({
-  type: COINS_FILTER,
-  status,
-  denomination
+export const filterCoins = () => ({
+  type: COINS_FILTER
 });
 
 export const addOwnedCoin = coinId => ({
