@@ -2,10 +2,8 @@ import { connect } from 'react-redux';
 import App from '../components/App';
 import { isLoading, setInitialState } from '../state/actions';
 
-const mapStateToProps = ({ loading, menu, user }) => ({
-  loading,
-  menuOpen: menu.isOpen,
-  user
+const mapStateToProps = ({ loading }) => ({
+  loading
 });
 
 const mapDispatchToProps = dispatch => ({

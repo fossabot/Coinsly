@@ -12,7 +12,6 @@ import MenuContainer from '../containers/MenuContainer';
 import CoinListContainer from '../containers/CoinListContainer';
 
 import '../styles/global.scss';
-import styles from '../styles/App.module.scss';
 
 class App extends Component {
   async componentDidMount() {
@@ -47,8 +46,6 @@ class App extends Component {
   };
 
   render() {
-    const { menuOpen, user } = this.props;
-
     return (
       <Fragment>
         <LoadingContainer />
@@ -56,22 +53,13 @@ class App extends Component {
         <MenuContainer />
 
         <HeaderContainer
-          title="Coinsly"
           login={this.login}
           logout={this.logout}
         />
 
         <DetailsContainer />
 
-        <div
-          className={`${styles.contentWrapper} ${
-            menuOpen ? styles.contentWrapper__spacingLeft : ''
-          }`}
-        >
-          {user && (
-            <CoinListContainer handleOwnedChange={this.handleOwnedChange} />
-          )}
-        </div>
+        <CoinListContainer />
       </Fragment>
     );
   }
@@ -79,11 +67,9 @@ class App extends Component {
 
 App.propTypes = {
   loading: PropTypes.bool.isRequired,
-  menuOpen: PropTypes.bool.isRequired,
-  user: PropTypes.object.isRequired,
   showLoader: PropTypes.func.isRequired,
   hideLoader: PropTypes.func.isRequired,
-  setInitialState: PropTypes.func.isRequired,
+  setInitialState: PropTypes.func.isRequired
 };
 
 export default withRouter(App);

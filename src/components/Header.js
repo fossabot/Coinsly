@@ -4,7 +4,6 @@ import styles from '../styles/Header.module.scss';
 import buttonStyles from '../styles/buttons.module.scss';
 
 const Header = ({
-  title,
   login,
   logout,
   user,
@@ -26,7 +25,7 @@ const Header = ({
       </button>
     )}
 
-    <h1 className={styles.siteTitle}>{title}</h1>
+    <h1 className={styles.siteTitle}>Coinsly</h1>
 
     <div className={styles.userWrapper}>
       {userAuthenticated && (
@@ -51,7 +50,6 @@ const Header = ({
 );
 
 Header.propTypes = {
-  title: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   userAuthenticated: PropTypes.bool.isRequired,
