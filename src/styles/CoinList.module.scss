@@ -9,18 +9,21 @@
 @value totalsHeight from "./Totals.module.scss";
 
 .coinsListWrapper {
-  border: none;
-  padding: 0;
   margin-top: calc(headerHeight + totalsHeight);
   padding: 20px;
   transition: margin-left 350ms;
 }
 
-    .coinsListWrapper__spacingLeft {
-        @media midBp {
-            margin-left: menuWidth;
-        }
-    }
+.coinsListWrapper__spacingLeft {
+  @media midBp {
+    margin-left: menuWidth;
+  }
+}
+
+.coinsList_fieldset {
+  border: none;
+  padding: 0;
+}
 
 .coinList {
   display: flex;
