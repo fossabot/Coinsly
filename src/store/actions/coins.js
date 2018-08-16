@@ -1,9 +1,9 @@
 import ownedApi from '../../lib/ownedApi';
 import { isLoading } from './loading';
+import { applyFilters } from './filters';
 import {
   COINS_ADD_ALL,
   COINS_SET_FILTERED,
-  COINS_FILTER,
   COINS_ADD_OWNED,
   COINS_REMOVE_OWNED
 } from '../constants';
@@ -16,10 +16,6 @@ export const addAllCoins = coins => ({
 export const setFilteredCoins = coins => ({
   type: COINS_SET_FILTERED,
   coins
-});
-
-export const filterCoins = () => ({
-  type: COINS_FILTER
 });
 
 export const addOwnedCoin = coinId => ({
@@ -46,6 +42,6 @@ export const setOwnedValue = ({ target }) => async (dispatch, getState) => {
     dispatch(removeOwnedCoin(coinId));
   }
 
-  dispatch(filterCoins());
+  dispatch(applyFilters());
   dispatch(isLoading(false));
 };

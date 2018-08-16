@@ -1,87 +1,60 @@
 import { produce } from 'immer';
 import {
   FILTERS_ADD_DENOMINATIONS,
-  FILTERS_SET_ALL,
   FILTERS_SET_STATUS,
   FILTERS_SET_DENOMINATION,
+  FILTERS_APPLY,
   COINS_ADD_ALL,
   COINS_SET_FILTERED,
-  COINS_FILTER,
   COINS_ADD_OWNED,
   COINS_REMOVE_OWNED
 } from '../constants';
 import coinHelper from '../../lib/coinHelper';
 
-const initialState = {
-  status: '',
-  statuses: ['All', 'Needed', 'Owned'],
-  denomination: '',
-  denominations: [],
-  allCoins: [],
-  filteredCoins: []
-};
-
-const coins = (state = initialState, action) =>
+const coins = (
+  state = {
+    status: '',
+    statuses: ['All', 'Needed', 'Owned'],
+    denomination: '',
+    denominations: [],
+    allCoins: [],
+    filteredCoins: []
+  },
+  action
+) =>
   produce(state, draft => {
     switch (action.type) {
       case FILTERS_ADD_DENOMINATIONS: {
         draft.denominations = action.denominations;
-
-        return;
-      }
-
-      case FILTERS_SET_ALL: {
-        const { filters } = action;
-
-        draft.status = filters.status;
-        draft.denomination = filters.denomination;
-
         return;
       }
 
       case FILTERS_SET_STATUS: {
         draft.status = action.status;
-
-        draft.filteredCoins = coinHelper.filterCoins(
-          state.allCoins,
-          action.status,
-          state.denomination
-        );
-
         return;
       }
 
       case FILTERS_SET_DENOMINATION: {
         draft.denomination = action.denomination;
-
-        draft.filteredCoins = coinHelper.filterCoins(
-          state.allCoins,
-          state.status,
-          action.denomination
-        );
-
         return;
       }
 
-      case COINS_ADD_ALL: {
-        draft.allCoins = action.coins;
-
-        return;
-      }
-
-      case COINS_SET_FILTERED: {
-        draft.filteredCoins = action.coins;
-
-        return;
-      }
-
-      case COINS_FILTER: {
+      case FILTERS_APPLY: {
         draft.filteredCoins = coinHelper.filterCoins(
           state.allCoins,
           state.status,
           state.denomination
         );
+        return;
+      }
 
+      case COINS_ADD_ALL: {
+        draft.allCoins = action.coins;
+        return;
+      }
+
+      case COINS_SET_FILTERED: {
+        draft.filteredCoins = action.coins;
         return;
       }
 

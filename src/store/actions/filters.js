@@ -1,9 +1,9 @@
 import { updateUrl } from './router';
 import {
   FILTERS_ADD_DENOMINATIONS,
-  FILTERS_SET_ALL,
   FILTERS_SET_STATUS,
-  FILTERS_SET_DENOMINATION
+  FILTERS_SET_DENOMINATION,
+  FILTERS_APPLY
 } from '../constants';
 
 export const addAllDenominations = denominations => ({
@@ -11,31 +11,32 @@ export const addAllDenominations = denominations => ({
   denominations
 });
 
-export const setAllFilters = filters => ({
-  type: FILTERS_SET_ALL,
-  filters
-});
-
-const setStatus = status => ({
+export const setStatus = status => ({
   type: FILTERS_SET_STATUS,
   status
 });
 
-export const updateStatus = ({ target }) => async dispatch => {
+export const updateStatus = ({ target }) => dispatch => {
   const { value: status } = target;
 
   dispatch(setStatus(status));
+  dispatch(applyFilters());
   dispatch(updateUrl());
 };
 
-const setDenomination = denomination => ({
+export const setDenomination = denomination => ({
   type: FILTERS_SET_DENOMINATION,
   denomination
 });
 
-export const updateDenomination = ({ target }) => async dispatch => {
+export const updateDenomination = ({ target }) => dispatch => {
   const { value: denomination } = target;
 
   dispatch(setDenomination(denomination));
+  dispatch(applyFilters());
   dispatch(updateUrl());
 };
+
+export const applyFilters = () => ({
+  type: FILTERS_APPLY
+});

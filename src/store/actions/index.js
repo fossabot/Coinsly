@@ -2,8 +2,13 @@ import qs from 'qs';
 import coinApi from '../../lib/coinApi';
 import coinHelper from '../../lib/coinHelper';
 import { isLoading } from './loading';
-import { addAllDenominations, setAllFilters } from './filters';
-import { addAllCoins, filterCoins } from './coins';
+import {
+  addAllDenominations,
+  setStatus,
+  setDenomination,
+  applyFilters
+} from './filters';
+import { addAllCoins } from './coins';
 import { addUserDetails } from './user';
 
 export const setInitialState = user => async (dispatch, getState) => {
@@ -20,7 +25,8 @@ export const setInitialState = user => async (dispatch, getState) => {
   dispatch(addUserDetails(user));
   dispatch(addAllCoins(coins));
   dispatch(addAllDenominations(denominations));
-  dispatch(setAllFilters({ status, denomination }));
-  dispatch(filterCoins());
+  dispatch(setStatus(status));
+  dispatch(setDenomination(denomination));
+  dispatch(applyFilters());
   dispatch(isLoading(false));
 };
