@@ -5,7 +5,7 @@ import coinHelper from '../helpers/coinHelper';
 import Totals from './Totals';
 import styles from '../styles/Totals.module.scss';
 
-const Details = ({ user, coins, denomination }) =>
+const Details = ({ user, denomination, coins }) =>
   user && (
     <div className={styles.totals}>
       <Totals coins={coins}>

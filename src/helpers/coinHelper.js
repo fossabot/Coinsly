@@ -1,7 +1,3 @@
-const filterNeeded = coins => coins.filter(coin => !coin.owned);
-
-const filterOwned = coins => coins.filter(coin => coin.owned);
-
 const filterByDenomination = (coins, denomination) =>
   coins.filter(coin => coin.denomination === denomination);
 
@@ -10,28 +6,15 @@ const filterCoins = (coins, filter, denomination) => {
 
   switch (filter) {
     case 'Needed':
-      return filterNeeded(byDenomination);
+      return byDenomination.filter(coin => !coin.owned);
     case 'Owned':
-      return filterOwned(byDenomination);
+      return byDenomination.filter(coin => coin.owned);
     default:
       return byDenomination;
   }
 };
 
-const getDenominations = coins => [
-  ...new Set(
-    coins.reduce((prev, coin) => {
-      if (coin.denomination) {
-        prev.push(coin.denomination);
-      }
-
-      return prev;
-    }, [])
-  )
-];
-
 export default {
   filterCoins,
-  filterByDenomination,
-  getDenominations
+  filterByDenomination
 };

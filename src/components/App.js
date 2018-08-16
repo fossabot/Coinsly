@@ -49,16 +49,9 @@ class App extends Component {
     return (
       <Fragment>
         <LoadingContainer />
-
         <MenuContainer />
-
-        <HeaderContainer
-          login={this.login}
-          logout={this.logout}
-        />
-
+        <HeaderContainer login={this.login} logout={this.logout} />
         <DetailsContainer />
-
         <CoinListContainer />
       </Fragment>
     );

@@ -1,5 +1,5 @@
 import { produce } from 'immer';
-import { MENU_TOGGLE } from '../actions';
+import { MENU_TOGGLE } from '../constants';
 
 const menu = (state = { isOpen: false }, action) =>
   produce(state, draft => {

@@ -1,4 +1,4 @@
-import { IS_LOADING } from '../actions';
+import { IS_LOADING } from '../constants';
 
 const loading = (state = true, action) => {
   switch (action.type) {

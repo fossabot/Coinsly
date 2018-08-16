@@ -1,4 +1,4 @@
-import { USER_SET_DETAILS } from '../actions';
+import { USER_SET_DETAILS } from '../constants';
 
 const user = (state = {}, action) => {
   switch (action.type) {

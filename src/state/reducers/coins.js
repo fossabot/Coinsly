@@ -9,7 +9,7 @@ import {
   COINS_FILTER,
   COINS_ADD_OWNED,
   COINS_REMOVE_OWNED
-} from '../actions';
+} from '../constants';
 import coinHelper from '../../helpers/coinHelper';
 
 const initialState = {
@@ -29,6 +29,7 @@ const coins = (state = initialState, action) =>
 
         draft.status = filters.status;
         draft.denomination = filters.denomination;
+
         return;
       }
 
@@ -52,21 +53,25 @@ const coins = (state = initialState, action) =>
           state.status,
           action.denomination
         );
+
         return;
       }
 
       case COINS_ADD_ALL: {
         draft.allCoins = action.coins;
+
         return;
       }
 
       case COINS_ADD_DENOMINATIONS: {
         draft.denominations = action.denominations;
+
         return;
       }
 
       case COINS_SET_FILTERED: {
         draft.filteredCoins = action.coins;
+
         return;
       }
 
@@ -76,7 +81,8 @@ const coins = (state = initialState, action) =>
           state.status,
           state.denomination
         );
-        return draft;
+
+        return;
       }
 
       case COINS_ADD_OWNED: {
@@ -86,7 +92,7 @@ const coins = (state = initialState, action) =>
           coin.owned = true;
         }
 
-        return draft;
+        return;
       }
 
       case COINS_REMOVE_OWNED: {
@@ -96,13 +102,7 @@ const coins = (state = initialState, action) =>
           coin.owned = false;
         }
 
-        // if (!coin) return draft;
-
-        // const index = draft.allCoins.findIndex(c => c.id === coinId);
-
-        // draft.allCoins[index] = coin;
-
-        return draft;
+        return;
       }
 
       default:
