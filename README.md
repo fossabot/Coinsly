@@ -12,3 +12,4 @@
 
 [![Build Status](https://travis-ci.org/DamianMullins/Coinsly.svg)](https://travis-ci.org/DamianMullins/Coinsly)
 [![Coverage Status](https://coveralls.io/repos/github/DamianMullins/Coinsly/badge.svg)](https://coveralls.io/github/DamianMullins/Coinsly)
+[![Known Vulnerabilities](https://snyk.io/test/github/DamianMullins/Coinsly/badge.svg)](https://snyk.io/test/github/DamianMullins/Coinsly)
