@@ -1,13 +1,15 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import { connectRouter, routerMiddleware } from 'connected-react-router';
+import { routerMiddleware } from 'connected-react-router';
 import LogRocket from 'logrocket';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
-import rootReducer from './reducers';
-import history from './history';
+import createRootReducer from './reducers';
+import { createBrowserHistory } from 'history';
+
+export const history = createBrowserHistory();
 
 const store = createStore(
-  connectRouter(history)(rootReducer),
+  createRootReducer(history),
   composeWithDevTools(
     applyMiddleware(
       routerMiddleware(history),

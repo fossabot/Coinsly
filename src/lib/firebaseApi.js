@@ -13,7 +13,6 @@ if (!firebase.apps.length) {
 }
 
 const firestore = firebase.firestore();
-firestore.settings({ timestampsInSnapshots: true });
 
 export const api = firestore;
 export const GoogleAuthProvider = new firebase.auth.GoogleAuthProvider();
