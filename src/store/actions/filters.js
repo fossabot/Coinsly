@@ -1,4 +1,5 @@
 import { updateUrl } from './router';
+import { toggleMenu } from './menu';
 import {
   FILTERS_ADD_DENOMINATIONS,
   FILTERS_SET_STATUS,
@@ -22,6 +23,7 @@ export const updateStatus = ({ target }) => dispatch => {
   dispatch(setStatus(status));
   dispatch(applyFilters());
   dispatch(updateUrl());
+  dispatch(toggleMenu());
 };
 
 export const setDenomination = denomination => ({
@@ -35,6 +37,7 @@ export const updateDenomination = ({ target }) => dispatch => {
   dispatch(setDenomination(denomination));
   dispatch(applyFilters());
   dispatch(updateUrl());
+  dispatch(toggleMenu());
 };
 
 export const applyFilters = () => ({

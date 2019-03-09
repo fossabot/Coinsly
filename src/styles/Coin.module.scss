@@ -18,6 +18,8 @@
     flex-grow: 0;
     flex-basis: 45%;
     margin-bottom: 20px;
+    opacity: 0;
+    transition: opacity 0.3s;
 
     &:hover {
       @include active-coin(white, grey_light, grey_light);
@@ -35,6 +37,10 @@
       flex-basis: 15%;
     }
 }
+
+  .coin__loaded {
+    opacity: 1;
+  }
 
   .coin__owned {
       @include active-coin(grey_lightest, grey, green);

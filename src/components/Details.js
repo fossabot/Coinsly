@@ -5,8 +5,8 @@ import coinHelper from '../lib/coinHelper';
 import Totals from './Totals';
 import styles from '../styles/Totals.module.scss';
 
-const Details = ({ user, denomination, coins }) =>
-  user && (
+const Details = ({ userAuthenticated, denomination, coins }) =>
+  userAuthenticated && (
     <div className={styles.totals}>
       <Totals coins={coins}>
         {({ total, owned, percentage }) => (
@@ -29,7 +29,7 @@ const Details = ({ user, denomination, coins }) =>
   );
 
 Details.propTypes = {
-  user: PropTypes.object.isRequired,
+  userAuthenticated: PropTypes.bool.isRequired,
   coins: PropTypes.array.isRequired,
   denomination: PropTypes.string.isRequired
 };

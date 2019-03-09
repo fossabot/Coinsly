@@ -2,7 +2,7 @@
 
 exports[`coin markup is correct 1`] = `
 <li
-  class="coin "
+  class="coin  not-loaded"
 >
   <label
     class="label"
