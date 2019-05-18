@@ -3,7 +3,7 @@
  * ----------------
  */
 
-@value grey_darkest, grey_light from "./_colors.scss";
+@import './_colors.scss';
 
 .filter {
   display: flex;
@@ -11,7 +11,7 @@
 }
 
 .label {
-    background-color: grey_light;
+    background-color: $grey_light;
     border-radius: 3px;
     display: inline-block;
     flex-basis: 100%;
@@ -20,11 +20,11 @@
     padding: 10px;
 
     &:hover {
-      background-color: grey_darkest;
+      background-color: $grey_darkest;
       cursor: pointer;
     }
 }
 
     .label__selected {
-        background-color: grey_darkest;
+        background-color: $grey_darkest;
     }

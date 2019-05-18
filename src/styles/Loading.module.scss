@@ -3,14 +3,14 @@
  * ----------------
  */
 
-@value white, grey_dark, grey, grey_lightest from "./_colors.scss";
+@import './_colors.scss';
 
 .loading {
-  background-color: grey;
-  border: solid 5px grey_lightest;
+  background-color: $grey;
+  border: solid 5px $grey_lightest;
   border-radius: 50%;
-  box-shadow: 0px 0px 30px 20px grey_dark;
-  color: white;
+  box-shadow: 0px 0px 30px 20px $grey_dark;
+  color: $white;
   margin: 0;
   padding: 10px;
   position: fixed;

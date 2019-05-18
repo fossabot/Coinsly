@@ -1,6 +1,8 @@
 import React from 'react';
-import { render } from 'react-testing-library';
+import { cleanup, render } from 'react-testing-library';
 import Coin from '../Coin';
+
+afterEach(cleanup);
 
 it('coin markup is correct', () => {
   // Arrange

@@ -3,15 +3,14 @@
  * ----------------
  */
 
-@value white, grey_darkest from "./_colors.scss";
-
-@value headerHeight 100px;
+@import './_colors.scss';
+@import './_variables.scss';
 
 .header {
   align-items: center;
-  background-color: grey_darkest;
+  background-color: $grey_darkest;
   display: flex;
-  height: headerHeight;
+  height: $headerHeight;
   justify-content: space-between;
   padding: 20px;
   position: fixed;

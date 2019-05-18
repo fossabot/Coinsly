@@ -3,15 +3,12 @@
  * ----------------
  */
 
-@value midBp from "./_mediaQueries.scss";
-@value grey, grey_light from "./_colors.scss";
-@value headerHeight from "./Header.module.scss";
-@value totalsHeight from "./Totals.module.scss";
-
-@value menuWidth 250px;
+@import './_mediaQueries.scss';
+@import './_colors.scss';
+@import './_variables.scss';
 
 .menu {
-    background-color: grey;
+    background-color: $grey;
     bottom: 0;
     left: -9999px;
     list-style: none;
@@ -20,15 +17,15 @@
     right: auto;
     padding: 20px;
     position: fixed;
-    top: calc(headerHeight + totalsHeight);
+    top: calc(#{$headerHeight} + #{$totalsHeight});
     transition: margin-left 350ms;
     z-index: 2;
 
-    @media midBp {
-        border-right: solid 5px grey_light;
+    @media #{$midBp} {
+        border-right: solid 5px $grey_light;
         left: 0;
-        margin-left: calc(menuWidth - (menuWidth * 2));
-        width: menuWidth;
+        margin-left: calc(#{$menuWidth} - (#{$menuWidth} * 2));
+        width: $menuWidth;
     }
 }
 
@@ -36,7 +33,7 @@
         left: 0;
         right: 0;
 
-        @media midBp {
+        @media #{$midBp} {
             margin-left: 0;
         }
     }

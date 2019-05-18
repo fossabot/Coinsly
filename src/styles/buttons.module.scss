@@ -3,12 +3,12 @@
  * ----------------
  */
 
-@value grey, white from "./_colors.scss";
+@import './_colors.scss';
 
 .button {
-  background-color: grey;
+  background-color: $grey;
   border: none;
   border-radius: 3px;
-  color: white;
+  color: $white;
   padding: 10px
 };
