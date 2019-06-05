@@ -13,3 +13,8 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/0510b39f-79ed-45cf-88c6-ab00800e97be/deploy-status)](https://app.netlify.com/sites/coinsly/deploys)
 [![Coverage Status](https://coveralls.io/repos/github/DamianMullins/Coinsly/badge.svg)](https://coveralls.io/github/DamianMullins/Coinsly)
 [![Known Vulnerabilities](https://snyk.io/test/github/DamianMullins/Coinsly/badge.svg)](https://snyk.io/test/github/DamianMullins/Coinsly)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FDamianMullins%2FCoinsly.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FDamianMullins%2FCoinsly?ref=badge_shield)
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FDamianMullins%2FCoinsly.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FDamianMullins%2FCoinsly?ref=badge_large)
